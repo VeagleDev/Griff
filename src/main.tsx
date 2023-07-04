@@ -1,5 +1,5 @@
-import { MantineProvider } from '@mantine/core';
-import { ModalsProvider } from '@mantine/modals';
+import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
