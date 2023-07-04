@@ -1,0 +1,35 @@
+{
+  "name": "Griff",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "test": "cd src-tauri && cargo t && cd .. && "
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@mantine/carousel": "^6.0.15",
+    "@mantine/core": "^6.0.15",
+    "@mantine/form": "^6.0.15",
+    "@mantine/hooks": "^6.0.15",
+    "@mantine/modals": "^6.0.15",
+    "@mantine/notifications": "^6.0.15",
+    "@tauri-apps/api": "^1.4.0",
+    "embla-carousel-react": "8.0.0-rc07",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.4.0",
+    "@types/node": "^18.7.10",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^3.0.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.2.1"
+  }
+}
