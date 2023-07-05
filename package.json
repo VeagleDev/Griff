@@ -11,7 +11,7 @@
     "test": "cd src-tauri && cargo t && cd .. && eslint ./src/*",
     "lint": "eslint ./src/*",
     "fix": "eslint --fix ./src/*",
-    "format": "prettier --write --end-of-line=auto ./src ./src-tauri/src",
+    "format": "prettier --write --end-of-line=auto ./src",
     "test:lint": "npm run lint",
     "test:fix": "npm run fix",
     "test:format": "npm run format"
