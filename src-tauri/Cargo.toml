@@ -1,8 +1,8 @@
 [package]
-name = "griff"
-version = "0.0.0"
-description = "A Tauri Index"
-authors = ["you"]
+name = "Griff"
+version = "0.0.1"
+description = "The third version on the excellent Griff game launcher made by Veagle."
+authors = ["VeagleDev"]
 license = ""
 repository = ""
 edition = "2021"
