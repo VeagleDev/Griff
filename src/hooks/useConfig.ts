@@ -3,10 +3,16 @@ import { readTextFile, writeTextFile, exists } from "@tauri-apps/api/fs";
 import toast from "../utils/toast.util";
 import ConfigType from "../types/config.type";
 
+const getConfigPath = async () => {
+  const dir = await appDataDir();
+  return dir + "config.json";
+};
 const useConfig = () => {
-  const configPath = `${appDataDir()}/config.json`;
+  const configPathPromise = getConfigPath();
+
   return {
     get: async (key: string, ignoreEmpty?: boolean) => {
+      const configPath = await configPathPromise;
       const config =
         await readTextFile(configPath)
           .then((data) => JSON.parse(data))
@@ -37,6 +43,7 @@ const useConfig = () => {
 
     },
     set: async (key: string, value: string, fullConfig?: ConfigType) => {
+      const configPath = await configPathPromise;
       if (!fullConfig) {
         if (await exists(configPath)) {
           await readTextFile(configPath)
@@ -62,8 +69,9 @@ const useConfig = () => {
       }
       else {
         await writeTextFile(configPath, JSON.stringify(fullConfig))
-          .catch(() => {
+          .catch((err) => {
             toast.error("Impossible d'écrire dans le fichier de configuration.");
+            console.error(err);
           });
       }
     }

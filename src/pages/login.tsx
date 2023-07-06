@@ -3,6 +3,7 @@ import { createFormContext } from "@mantine/form";
 import { TextInput } from "@mantine/core";
 import ConfigType from "../types/config.type";
 import {getServerName, checkServerUrl} from "../utils/serverUrl.util";
+import useConfig from "../hooks/useConfig";
 
 interface LoginFormValues {
   server: string;
@@ -35,6 +36,7 @@ function ContextField() {
 }
 
 export function Login() {
+  const { set } = useConfig();
   // Create form as described in use-form documentation
   const form = useForm({
     initialValues: {
@@ -45,18 +47,30 @@ export function Login() {
     validate: {
       server: (value) => {
         if (!value) {
-          return "Server is required";
+          return "Le serveur est requis";
         }
         if(!value.startsWith("http")) {
-          return "Server must start with http:// or https://"
+          return "Le serveur doit commencer par http ou https"
         }
       },
       username: (value) => {
         // Between 2 and 26 characters, alphanumeric
         if (!value) {
-          return "Username is required";
+          return "Le nom d'utilisateur est requis";
         }
-        return (/^[a-zA-Z0-9]{2,26}$/).test(value);
+
+        if (value.length < 2 || value.length > 26) {
+          return "Le nom d'utilisateur doit être entre 2 et 26 caractères";
+        }
+
+        if (!value.match(/^[a-zA-Z0-9]+$/)) {
+          return "Le nom d'utilisateur ne doit contenir que des caractères alphanumériques";
+        }
+      },
+      password: (value) => {
+        if (!value) {
+          return "Le mot de passe est requis";
+        }
       }
     }
   });
@@ -85,6 +99,8 @@ export function Login() {
             email: "",
             installedGames: [],
           } as ConfigType;
+
+          set("", "", config);
 
           console.log(config);
         })}>

@@ -6,7 +6,7 @@ const error = (message: string, config?: Omit<NotificationProps, "message">) =>
     icon: <TbX />,
     color: "red",
     radius: "md",
-    title: "Error",
+    title: "Erreur",
     message: message,
 
     autoClose: true,
@@ -23,7 +23,7 @@ const success = (
     icon: <TbCheck />,
     color: "green",
     radius: "md",
-    title: "Success",
+    title: "Succès",
     message: message,
     autoClose: true,
     ...config,
