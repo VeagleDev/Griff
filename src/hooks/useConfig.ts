@@ -1,6 +1,7 @@
 import { appDataDir } from "@tauri-apps/api/path";
 import { readTextFile, writeTextFile, exists } from "@tauri-apps/api/fs";
 import toast from "../utils/toast.util";
+import ConfigType from "../types/config.type";
 
 const useConfig = () => {
   const configPath = `${appDataDir()}/config.json`;
@@ -35,27 +36,32 @@ const useConfig = () => {
 
 
     },
-    set: async (key: string, value: string) => {
-      if(await exists(configPath))
-      {
-        await readTextFile(configPath)
-          .then((data) => JSON.parse(data))
-          .then(async (config) => {
-            config[key] = value;
-            await writeTextFile(configPath, JSON.stringify(config))
-              .catch(() => {
-                toast.error("Impossible d'écrire dans le fichier de configuration.");
-              });
-          })
-          .catch(() => {
-            toast.error("Fichier de configuration illisible.");
-          });
+    set: async (key: string, value: string, fullConfig?: ConfigType) => {
+      if (!fullConfig) {
+        if (await exists(configPath)) {
+          await readTextFile(configPath)
+            .then((data) => JSON.parse(data))
+            .then(async (config) => {
+              config[key] = value;
+              await writeTextFile(configPath, JSON.stringify(config))
+                .catch(() => {
+                  toast.error("Impossible d'écrire dans le fichier de configuration.");
+                });
+            })
+            .catch(() => {
+              toast.error("Fichier de configuration illisible.");
+            });
+        } else {
+          const config = {} as any;
+          config[key] = value;
+          await writeTextFile(configPath, JSON.stringify(config))
+            .catch(() => {
+              toast.error("Impossible d'écrire dans le fichier de configuration.");
+            });
+        }
       }
-      else
-      {
-        const config = {} as any;
-        config[key] = value;
-        await writeTextFile(configPath, JSON.stringify(config))
+      else {
+        await writeTextFile(configPath, JSON.stringify(fullConfig))
           .catch(() => {
             toast.error("Impossible d'écrire dans le fichier de configuration.");
           });
