@@ -9,8 +9,6 @@ interface DataConfig {
 
   email: string;
   installedGames: InstalledGame[];
-
 }
-
 
 export default DataConfig;

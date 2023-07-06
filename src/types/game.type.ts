@@ -1,4 +1,3 @@
-
 interface InstalledGame {
   name: string;
   installPath: string;

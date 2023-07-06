@@ -13,34 +13,27 @@ const useConfig = () => {
   return {
     get: async (key: string, ignoreEmpty?: boolean) => {
       const configPath = await configPathPromise;
-      const config =
-        await readTextFile(configPath)
-          .then((data) => JSON.parse(data))
-          .catch(() => {
-            if(!ignoreEmpty)
-              toast.error("Fichier de configuration introuvable.");
+      const config = await readTextFile(configPath)
+        .then((data) => JSON.parse(data))
+        .catch(() => {
+          if (!ignoreEmpty)
+            toast.error("Fichier de configuration introuvable.");
 
-            return {};
-          });
+          return {};
+        });
 
-      if(!config)
-      {
-        if(!ignoreEmpty)
-          toast.error("Fichier de configuration introuvable.");
+      if (!config) {
+        if (!ignoreEmpty) toast.error("Fichier de configuration introuvable.");
 
         return undefined;
       }
 
-      if(key in config)
-        return config[key];
-      else
-      {
-        if(!ignoreEmpty)
+      if (key in config) return config[key];
+      else {
+        if (!ignoreEmpty)
           toast.error(`Clé de configuration "${key}" introuvable.`);
         return undefined;
       }
-
-
     },
     set: async (key: string, value: string, fullConfig?: ConfigType) => {
       const configPath = await configPathPromise;
@@ -50,10 +43,13 @@ const useConfig = () => {
             .then((data) => JSON.parse(data))
             .then(async (config) => {
               config[key] = value;
-              await writeTextFile(configPath, JSON.stringify(config))
-                .catch(() => {
-                  toast.error("Impossible d'écrire dans le fichier de configuration.");
-                });
+              await writeTextFile(configPath, JSON.stringify(config)).catch(
+                () => {
+                  toast.error(
+                    "Impossible d'écrire dans le fichier de configuration."
+                  );
+                }
+              );
             })
             .catch(() => {
               toast.error("Fichier de configuration illisible.");
@@ -61,20 +57,23 @@ const useConfig = () => {
         } else {
           const config = {} as any;
           config[key] = value;
-          await writeTextFile(configPath, JSON.stringify(config))
-            .catch(() => {
-              toast.error("Impossible d'écrire dans le fichier de configuration.");
-            });
-        }
-      }
-      else {
-        await writeTextFile(configPath, JSON.stringify(fullConfig))
-          .catch((err) => {
-            toast.error("Impossible d'écrire dans le fichier de configuration.");
-            console.error(err);
+          await writeTextFile(configPath, JSON.stringify(config)).catch(() => {
+            toast.error(
+              "Impossible d'écrire dans le fichier de configuration."
+            );
           });
+        }
+      } else {
+        await writeTextFile(configPath, JSON.stringify(fullConfig)).catch(
+          (err) => {
+            toast.error(
+              "Impossible d'écrire dans le fichier de configuration."
+            );
+            console.error(err);
+          }
+        );
       }
-    }
+    },
   };
 };
 

@@ -14,7 +14,6 @@ const error = (message: string, config?: Omit<NotificationProps, "message">) =>
     ...config,
   });
 
-
 const success = (
   message: string,
   config?: Omit<NotificationProps, "message">
