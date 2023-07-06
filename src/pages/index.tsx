@@ -13,8 +13,7 @@ function Index() {
         sx={{ margin: "10px 0" }}
         onClick={() => {
           modals.openModal({
-            title: "Modal title",
-            children: "Yeah, this is modal body",
+            children: <div>Hello</div>,
             size: "md",
           });
         }}
