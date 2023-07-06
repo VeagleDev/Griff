@@ -9,6 +9,7 @@ interface DataConfig {
 
   email: string;
   installedGames: InstalledGame[];
+
 }
 
 
