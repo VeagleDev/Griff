@@ -8,6 +8,7 @@ import ReactDOM from "react-dom/client";
 import globalStyle from "./styles/mantine.style";
 
 import Index from "./pages/index";
+import { Login } from "./pages/login";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -18,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     >
       <Notifications />
       <ModalsProvider>
-        <Index />
+        <Login />
       </ModalsProvider>
     </MantineProvider>
   </React.StrictMode>

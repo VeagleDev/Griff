@@ -1,7 +1,16 @@
-# Tauri + React + Typescript
+# Griff
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+## Overview
 
-## Recommended IDE Setup
+This is the third Griff game launcher.
+The application is made by the VeagleDev team.
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## Technologies
+
+- [Rust](https://www.rust-lang.org/)
+- [Tauri](https://tauri.studio/)
+- [Vite](https://vitejs.dev/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Mantine](https://mantine.dev/)
+- [Sass](https://sass-lang.com/)

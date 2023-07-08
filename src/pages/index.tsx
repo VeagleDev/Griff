@@ -1,5 +1,6 @@
 import { Button, Flex } from "@mantine/core";
 import { useModals } from "@mantine/modals";
+import "../styles/style.scss";
 
 function Index() {
   const modals = useModals();
