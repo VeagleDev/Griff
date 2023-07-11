@@ -29,10 +29,8 @@
         "renameFile": true,
         "exists": true,
         "scope": [
-          "*",
           "$APPCONFIG\\*",
-          "$APPDATA\\*",
-          "$APPLOCALDATA\\*"
+          "$APPCONFIG"
         ]
       },
       "path": {
