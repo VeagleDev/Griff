@@ -31,8 +31,8 @@ export function Login() {
   const form = useForm({
     initialValues: {
       server: "https://griff.veagle.fr",
-      username: "",
-      password: "",
+      username: "pierrbt",
+      password: "123456",
     },
     validate: {
       server: (value) => {
