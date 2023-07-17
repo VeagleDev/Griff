@@ -1,4 +1,4 @@
-import InstalledGame from "./game.type";
+import { InstalledGame } from "./game.type";
 
 interface DataConfig {
   serverUrl: string;
