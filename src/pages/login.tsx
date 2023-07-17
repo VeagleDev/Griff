@@ -9,6 +9,8 @@ interface LoginFormValues {
   server: string;
   username: string;
   password: string;
+  firstName: string;
+  email: string;
 }
 
 const [FormProvider, useFormContext, useForm] =
@@ -18,9 +20,11 @@ function ContextField() {
   const form = useFormContext();
   return (
     <Stack spacing="xs">
-      <TextInput label={"Server"} {...form.getInputProps("server")} />
-      <TextInput label={"Username"} {...form.getInputProps("username")} />
-      <TextInput label={"Password"} {...form.getInputProps("password")} />
+      <TextInput label={"Serveur"} {...form.getInputProps("server")} />
+      <TextInput label={"Nom d'utilisateur"} {...form.getInputProps("username")} />
+      <TextInput label={"Prénom"} {...form.getInputProps("firstName")} />
+      <TextInput label={"Email"} {...form.getInputProps("email")} />
+      <TextInput label={"Mot de passe"} {...form.getInputProps("password")} />
     </Stack>
   );
 }
@@ -33,6 +37,8 @@ export function Login() {
       server: "https://griff.veagle.fr",
       username: "pierrbt",
       password: "123456",
+      firstName: "Pierre",
+      email: "pe08bt@gmail.com"
     },
     validate: {
       server: (value) => {
@@ -62,7 +68,23 @@ export function Login() {
           return "Le mot de passe est requis";
         }
       },
+      firstName: (value) => {
+        if (!value) {
+          return "Le prénom est requis";
+        }
+        if(value[0] !== value[0].toUpperCase()) {
+          return "Le prénom doit commencer par une majuscule"
+        }
+      },
+      email: (value) => {
+        if (!value) {
+          return "L'email est requis";
+        }
+        if (!value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+          return "L'email doit être valide";
+      }
     },
+  },
   });
 
   // Wrap your form with FormProvider
@@ -85,8 +107,9 @@ export function Login() {
               serverUrl: checkServerUrl(values.server),
               serverName: getServerName(values.server),
               username: values.username,
+              firstName: values.firstName,
               token: "",
-              email: "",
+              email: values.email,
               installedGames: [],
             } as ConfigType;
 

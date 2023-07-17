@@ -6,6 +6,7 @@ interface DataConfig {
 
   username: string;
   token: string;
+  firstName: string;
 
   email: string;
   installedGames: InstalledGame[];
