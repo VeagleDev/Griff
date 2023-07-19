@@ -4,7 +4,8 @@ import { TextInput } from "@mantine/core";
 import ConfigType from "../types/config.type";
 import { getServerName, checkServerUrl } from "../utils/serverUrl.util";
 import useConfig from "../hooks/useConfig";
-
+import toast from "../utils/toast.util";
+import axios from "axios";
 interface LoginFormValues {
   server: string;
   username: string;
@@ -21,7 +22,10 @@ function ContextField() {
   return (
     <Stack spacing="xs">
       <TextInput label={"Serveur"} {...form.getInputProps("server")} />
-      <TextInput label={"Nom d'utilisateur"} {...form.getInputProps("username")} />
+      <TextInput
+        label={"Nom d'utilisateur"}
+        {...form.getInputProps("username")}
+      />
       <TextInput label={"Prénom"} {...form.getInputProps("firstName")} />
       <TextInput label={"Email"} {...form.getInputProps("email")} />
       <TextInput label={"Mot de passe"} {...form.getInputProps("password")} />
@@ -38,7 +42,7 @@ export function Login() {
       username: "pierrbt",
       password: "123456",
       firstName: "Pierre",
-      email: "pe08bt@gmail.com"
+      email: "pe08bt@gmail.com",
     },
     validate: {
       server: (value) => {
@@ -72,19 +76,23 @@ export function Login() {
         if (!value) {
           return "Le prénom est requis";
         }
-        if(value[0] !== value[0].toUpperCase()) {
-          return "Le prénom doit commencer par une majuscule"
+        if (value[0] !== value[0].toUpperCase()) {
+          return "Le prénom doit commencer par une majuscule";
         }
       },
       email: (value) => {
         if (!value) {
           return "L'email est requis";
         }
-        if (!value.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        if (
+          !value.match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          )
+        ) {
           return "L'email doit être valide";
-      }
+        }
+      },
     },
-  },
   });
 
   // Wrap your form with FormProvider
@@ -100,22 +108,46 @@ export function Login() {
 
       <FormProvider form={form}>
         <form
-          onSubmit={form.onSubmit((values) => {
-            // Get the token or throw an error
+          onSubmit={form.onSubmit(async (values) => {
+            let token = "";
+            if (
+              !(await axios
+                .post(`${checkServerUrl(values.server)}/user`, {
+                  pseudo: values.username,
+                  password: values.password,
+                  email: values.email,
+                  firstName: values.firstName,
+                })
+                .then((response) => {
+                  if (response.data.ok) {
+                    token = response.data.token;
+                    toast.success("Utilisateur créé avec succès");
+                  } else {
+                    console.error(response.data.message);
+                    console.error(response.data.error);
+                    throw new Error(response.data.message);
+                  }
+                  return true;
+                })
+                .catch((error) => {
+                  console.log(error);
+                  toast.error("Erreur lors de la connexion : " + error.message);
+                  return false;
+                }))
+            )
+              return;
 
             const config = {
               serverUrl: checkServerUrl(values.server),
               serverName: getServerName(values.server),
               username: values.username,
               firstName: values.firstName,
-              token: "",
+              token: token,
               email: values.email,
               installedGames: [],
             } as ConfigType;
 
-            set("", "", config);
-
-            console.log(config);
+            await set("", "", config);
           })}
         >
           <ContextField />
