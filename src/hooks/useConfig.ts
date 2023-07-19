@@ -1,5 +1,10 @@
 import { appDataDir } from "@tauri-apps/api/path";
-import { readTextFile, writeTextFile, exists, createDir } from "@tauri-apps/api/fs";
+import {
+  readTextFile,
+  writeTextFile,
+  exists,
+  createDir,
+} from "@tauri-apps/api/fs";
 import toast from "../utils/toast.util";
 import ConfigType from "../types/config.type";
 
@@ -11,7 +16,7 @@ const useConfig = () => {
 
   return {
     get: async (key: string, ignoreEmpty?: boolean) => {
-      const configPath = await configPathPromise + "config.json";
+      const configPath = (await configPathPromise) + "config.json";
       const config = await readTextFile(configPath)
         .then((data) => JSON.parse(data))
         .catch(() => {
@@ -36,11 +41,10 @@ const useConfig = () => {
     },
     set: async (key: string, value: string, fullConfig?: ConfigType) => {
       const configDir = await configPathPromise;
-      const configPath = await configPathPromise + "config.json";
-      await createDir(configDir, { recursive: true })
-        .catch(() => {
-          toast.error("L'écriture du dossier de configuration est impossible.");
-        });
+      const configPath = (await configPathPromise) + "config.json";
+      await createDir(configDir, { recursive: true }).catch(() => {
+        toast.error("L'écriture du dossier de configuration est impossible.");
+      });
       if (!fullConfig) {
         if (await exists(configPath)) {
           await readTextFile(configPath)

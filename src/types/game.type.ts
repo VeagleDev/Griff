@@ -26,4 +26,3 @@ export interface GameProps {
   background: string;
   altBackground: string;
 }
-
