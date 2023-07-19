@@ -1,5 +1,5 @@
 [package]
-name = "Griff"
+name = "griff"
 version = "0.0.1"
 description = "The third version on the excellent Griff game launcher made by Veagle."
 authors = ["VeagleDev"]
