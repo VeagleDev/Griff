@@ -18,6 +18,9 @@ pnpm-lock.yaml
 
 src-tauri/Cargo.lock
 
+src-tauri/*.lock
+*.lock
+
 # Editor directories and files
 .vscode
 .vscode/*
