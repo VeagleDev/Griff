@@ -1,4 +1,4 @@
-import axios from "axios/index";
+import axios from "axios";
 import { checkServerUrl, getServerName } from "../../utils/serverUrl.util";
 import toast from "../../utils/toast.util";
 import ConfigType from "../../types/config.type";
