@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import globalStyle from "./styles/mantine.style";
-import { Login } from "./pages/login";
+import { Login } from "./pages/Login/login";
 import { Layout } from "./pages/layout";
 import Home from "./pages/Home";
 

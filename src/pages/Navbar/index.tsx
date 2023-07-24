@@ -11,7 +11,7 @@ function Navbar() {
         <button className="profile-section section flex-center">
           <div className="content flex">
             <div className="profile-picture img-ctnr">
-              <img src="" alt=""/>
+              <img src="" alt="" />
             </div>
 
             <div className="flex-col">
@@ -113,7 +113,7 @@ function Navbar() {
             <button className="card ready-to-play">
               <div className="content flex">
                 <div className="img-ctnr">
-                  <img src="" alt=""/>
+                  <img src="" alt="" />
                 </div>
 
                 <div className="flex-col right-content">
@@ -126,7 +126,7 @@ function Navbar() {
             <button className="card downloading">
               <div className="content flex">
                 <div className="img-ctnr">
-                  <img src="" alt=""/>
+                  <img src="" alt="" />
                 </div>
 
                 <div className="flex-col right-content">

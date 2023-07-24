@@ -20,7 +20,7 @@ function Home() {
 
         <div className="bg">
           <div className="img-ctnr">
-            <img src="" alt=""/>
+            <img src="" alt="" />
           </div>
 
           <div className="gradient"></div>
