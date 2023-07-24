@@ -1,4 +1,4 @@
-import { UseFormReturnType } from "@mantine/form";
+
 
 export interface LoginFormValues {
   server: string;
@@ -9,5 +9,5 @@ export interface LoginFormValues {
 }
 
 export interface FormInputsProps {
-  form: UseFormReturnType<LoginFormValues, (values: any) => any>;
+  getInputProps: any;
 }
