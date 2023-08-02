@@ -5,7 +5,7 @@ import ConfigType from "../../types/config.type";
 import useConfig from "../../hooks/useConfig";
 import { LoginFormValues } from "../../types/login.type";
 
-export function getFormSubmit(form: any) {
+export function getFormSubmit(form: any, complete: Function) {
   return form.onSubmit(async (values: LoginFormValues) => {
     const { set } = useConfig();
     let token = "";
@@ -46,6 +46,14 @@ export function getFormSubmit(form: any) {
       installedGames: [],
     } as ConfigType;
 
-    await set("", "", config);
+    return await set("", "", config)
+      .then(async (val) => {
+        console.log("zépartie");
+        if(val) complete(true)
+        else console.log("zépartie pas");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 }

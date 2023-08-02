@@ -47,37 +47,49 @@ const useConfig = () => {
       });
       if (!fullConfig) {
         if (await exists(configPath)) {
-          await readTextFile(configPath)
+          return await readTextFile(configPath)
             .then((data) => JSON.parse(data))
             .then(async (config) => {
               config[key] = value;
-              await writeTextFile(configPath, JSON.stringify(config)).catch(
-                () => {
+              return await writeTextFile(configPath, JSON.stringify(config))
+                .then(() => true)
+                .catch(() => {
                   toast.error(
                     "Impossible d'écrire dans le fichier de configuration."
                   );
+                  return false;
                 }
               );
             })
             .catch(() => {
               toast.error("Fichier de configuration illisible.");
+              return false
             });
         } else {
           const config = {} as any;
           config[key] = value;
-          await writeTextFile(configPath, JSON.stringify(config)).catch(() => {
+          return await writeTextFile(configPath, JSON.stringify(config))
+            .then(() => true)
+            .catch(() => {
             toast.error(
               "Impossible d'écrire dans le fichier de configuration."
             );
+            return false
           });
         }
       } else {
-        await writeTextFile(configPath, JSON.stringify(fullConfig)).catch(
+        return await writeTextFile(configPath, JSON.stringify(fullConfig))
+          .then(async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            return true
+          })
+          .catch(
           (err) => {
             toast.error(
               "Impossible d'écrire dans le fichier de configuration."
             );
             console.error(err);
+            return false
           }
         );
       }

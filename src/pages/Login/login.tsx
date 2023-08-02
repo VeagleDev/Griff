@@ -24,7 +24,7 @@ function FormInputs() {
     </Stack>
   );
 }
-export function Login() {
+export function Login({ complete }: { complete: Function}) {
   const form = useForm({
     initialValues: {
       server: "https://griff.veagle.fr",
@@ -95,7 +95,7 @@ export function Login() {
       </Title>
 
       <FormProvider form={form}>
-        <form onSubmit={getFormSubmit(form)}>
+        <form onSubmit={getFormSubmit(form, complete)}>
           <FormInputs />
           <Button mt="md" type="submit">
             Submit
