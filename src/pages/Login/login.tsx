@@ -1,6 +1,6 @@
-import {Button, Stack, TextInput, Title} from "@mantine/core";
-import {createFormContext, UseFormReturnType} from "@mantine/form";
-import {LoginFormValues} from "../../types/login.type";
+import { Button, Stack, TextInput, Title } from "@mantine/core";
+import { createFormContext, UseFormReturnType } from "@mantine/form";
+import { LoginFormValues } from "../../types/login.type";
 import { getFormSubmit } from "./submit";
 
 const [FormProvider, useFormContext, useForm] =
@@ -17,13 +17,14 @@ function FormInputs() {
       />
       <TextInput label={"Prénom"} {...formContext.getInputProps("firstName")} />
       <TextInput label={"Email"} {...formContext.getInputProps("email")} />
-      <TextInput label={"Mot de passe"} {...formContext.getInputProps("password")} />
+      <TextInput
+        label={"Mot de passe"}
+        {...formContext.getInputProps("password")}
+      />
     </Stack>
-
   );
 }
 export function Login() {
-
   const form = useForm({
     initialValues: {
       server: "https://griff.veagle.fr",
