@@ -20,8 +20,8 @@ function Home() {
             <img src="" />
           </div>
           
-          <div className="gradient"></div>
-          <div className="gradient"></div>
+          <div className="gradient-h"></div>
+          <div className="gradient-w"></div>
         </div>
       </div>
     </main>
