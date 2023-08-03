@@ -24,16 +24,18 @@ jobs:
             src-tauri/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - uses: actions/checkout@v3
-      - name: setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+      
       - name: Install frontend dependencies
         run: pnpm install # change this to npm or pnpm depending on which one you use
       - uses: tauri-apps/tauri-action@v0
