@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Griff",
-    "version": "0.0.0"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -47,23 +47,33 @@
         "icons/128x128@2x.png",
         "icons/icon.icns",
         "icons/icon.ico"
-      ]
-    },
-    "security": {
-      "csp": null
-    },
-    "windows": [
-      {
-        "fullscreen": false,
-        "resizable": true,
+      ],
+      "copyright": "GPL-3.0",
+      "category": "Game",
+      "shortDescription": "Griff is a game launcher made by Veagle",
+      "longDescription": "Griff is a self-hosted game launcher made by Veagle using Tauri.",
+      "windows": {
+        "wix": {
 
-        "title": "Griff",
-        "width": 1100,
-        "height": 700,
-        "minWidth": 800,
-        "minHeight": 500,
-        "theme": "Dark"
+        }
       }
-    ]
+    },
+  "security": {
+    "csp": null
+  },
+  "windows": [
+    {
+      "fullscreen": false,
+      "resizable": true,
+
+      "title": "Griff",
+      "width": 1100,
+      "height": 700,
+      "minWidth": 800,
+      "minHeight": 500,
+      "theme": "Dark"
+    }
+  ]
   }
 }
+
