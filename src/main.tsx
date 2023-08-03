@@ -30,12 +30,14 @@ function App() {
       if (isLoading.current) return;
       isLoading.current = true;
 
-      if (!(await get("serverUrl"))) {
+      const serverUrl = await get("serverUrl");
+      const token = await get("token");
+
+      if (!serverUrl) {
         setIsLogged(1);
         return;
       }
 
-      const token = await get("token");
       if (!token) {
         toast.error("Le token enregistré est invalide");
         setIsLogged(1);
@@ -45,10 +47,10 @@ function App() {
       await axios
         .post(
           "/user/verify",
-          { token },
+          {},
           {
-            baseURL: await get("serverUrl"),
-            timeout: 2000,
+            baseURL: serverUrl,
+            timeout: 3000,
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + token,
@@ -72,7 +74,13 @@ function App() {
             console.log("Pas de connexion aux internets");
             toast.error("Vous n'êtes pas connecté à internet");
             setForceDisplay(true);
-            forcedElementRef.current = <OfflinePage />;
+            forcedElementRef.current = (
+              <OfflinePage
+                server={serverUrl}
+                reloadApp={setReload}
+                userToken={token}
+              />
+            );
           } else {
             toast.error("La connexion au serveur a échoué");
             console.log(err);
