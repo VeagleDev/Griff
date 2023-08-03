@@ -58,12 +58,11 @@ const useConfig = () => {
                     "Impossible d'écrire dans le fichier de configuration."
                   );
                   return false;
-                }
-              );
+                });
             })
             .catch(() => {
               toast.error("Fichier de configuration illisible.");
-              return false
+              return false;
             });
         } else {
           const config = {} as any;
@@ -71,27 +70,25 @@ const useConfig = () => {
           return await writeTextFile(configPath, JSON.stringify(config))
             .then(() => true)
             .catch(() => {
-            toast.error(
-              "Impossible d'écrire dans le fichier de configuration."
-            );
-            return false
-          });
+              toast.error(
+                "Impossible d'écrire dans le fichier de configuration."
+              );
+              return false;
+            });
         }
       } else {
         return await writeTextFile(configPath, JSON.stringify(fullConfig))
           .then(async () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
-            return true
+            return true;
           })
-          .catch(
-          (err) => {
+          .catch((err) => {
             toast.error(
               "Impossible d'écrire dans le fichier de configuration."
             );
             console.error(err);
-            return false
-          }
-        );
+            return false;
+          });
       }
     },
   };

@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { Loader, Text } from '@mantine/core';
+import React, { useEffect } from "react";
+import { Loader, Text } from "@mantine/core";
 
 const LoadingWheel = () => {
   const [dotsNumber, setDotsNumber] = React.useState(0);
@@ -13,16 +13,19 @@ const LoadingWheel = () => {
   }, []);
 
   return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      flexDirection: "column",
-      justifyContent: "center",
-      height: "100%"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "center",
+        height: "100%",
+      }}
+    >
       <Loader size="xl" />
-      <Text size="xl" style={{ marginTop: 10, transition: 'all .5s' }}>Connexion{".".repeat(dotsNumber)}</Text>
-
+      <Text size="xl" style={{ marginTop: 10, transition: "all .5s" }}>
+        Connexion{".".repeat(dotsNumber)}
+      </Text>
     </div>
   );
 };

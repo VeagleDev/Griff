@@ -4,8 +4,12 @@ import toast from "../../utils/toast.util";
 import ConfigType from "../../types/config.type";
 import useConfig from "../../hooks/useConfig";
 import { LoginFormValues } from "../../types/login.type";
+import { Dispatch, SetStateAction } from "react";
 
-export function getFormSubmit(form: any, complete: Function) {
+export function getFormSubmit(
+  form: any,
+  reloadApp: Dispatch<SetStateAction<number>>
+) {
   return form.onSubmit(async (values: LoginFormValues) => {
     const { set } = useConfig();
     let token = "";
@@ -48,9 +52,14 @@ export function getFormSubmit(form: any, complete: Function) {
 
     return await set("", "", config)
       .then(async (val) => {
-        console.log("zépartie");
-        if(val) complete(true)
-        else console.log("zépartie pas");
+        if (val) {
+          console.log("Reload app");
+          reloadApp(1);
+          console.log("Reload app done");
+        } else {
+          console.error("Error while saving config");
+          toast.error("Erreur lors de la connexion");
+        }
       })
       .catch((err) => {
         console.error(err);

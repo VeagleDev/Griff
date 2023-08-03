@@ -4,7 +4,7 @@ import { Notifications } from "@mantine/notifications";
 import "./styles/style.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom/client";
 import globalStyle from "./styles/mantine.style";
 import { Login } from "./pages/Login/login";
@@ -13,79 +13,100 @@ import Home from "./pages/Home";
 import LoadingWheel from "./components/Misc/LoadingWheel";
 import "./styles/app.scss";
 import useConfig from "./hooks/useConfig";
-import api from "./services/api.service";
-
+import axios from "axios";
+import toast from "./utils/toast.util";
+import OfflinePage from "./components/Misc/OfflinePage";
 function App() {
-  const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev
+  const [isLogged, setIsLogged] = useState(0); // 0 pour stable, 99 pour dev
   const [reload, setReload] = useState(0);
-
-
+  const [forceDisplay, setForceDisplay] = useState(false);
+  const forcedElementRef = useRef(<></>);
+  const isLoading = useRef(false);
 
   const { get } = useConfig();
   useEffect(() => {
     (async () => {
-      if(isLogged === 99)
-        return;
+      if (isLogged === 99) return;
+      if(isLoading.current) return;
+      isLoading.current = true;
 
-      if(!await get("serverUrl"))
-      {
+      if (!(await get("serverUrl"))) {
         setIsLogged(1);
         return;
       }
 
       const token = await get("token");
-      if(!token)
-      {
+      if (!token) {
+        toast.error("Le token enregistré est invalide");
         setIsLogged(1);
         return;
       }
 
-      await api.post("/user/verify", {token})
-        .then((res) => {
-          if(res.status === 200 && res.data.ok === true)
+      await axios
+        .post(
+          "/user/verify",
+          { token },
           {
+            baseURL: await get("serverUrl"),
+            timeout: 2000,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("res");
+          if (res.status === 200 && res.data.ok) {
             setIsLogged(2);
             console.log(res);
-          }
-          else
-          {
+          } else {
+            toast.error("Le token enregistré a été refusé");
             console.log(res);
             setIsLogged(1);
-
           }
+          if(forceDisplay) setForceDisplay(false);
         })
         .catch((err) => {
-          console.log(err);
-          setIsLogged(1);
+          if (err.code === "ERR_NETWORK" || err.code === "ECONNABORTED") {
+            console.log("Pas de connexion aux internets");
+            toast.error("Vous n'êtes pas connecté à internet");
+            setForceDisplay(true);
+            forcedElementRef.current = <OfflinePage />;
+          } else {
+            toast.error("La connexion au serveur a échoué");
+            console.log(err);
+            setIsLogged(1);
+            if(forceDisplay) setForceDisplay(false);
+          }
         });
+      isLoading.current = false;
     })();
-
   }, [reload]);
-  return(
+
+  if(forceDisplay) return forcedElementRef.current;
+
+  return (
     <Router>
       <Routes>
-        { isLogged == 0 ? // Utilisé pour le backend ----------------------
-          <Route index element={<LoadingWheel />} />  :
-          isLogged == 1 ?
-            <Route index element={<Login complete={setReload}/>} /> :
-            isLogged == 2 ?
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-            </Route> : // --------------------------------------------------
+        {isLogged === 0 ? ( // Utilisé pour le backend ----------------------
+          <Route index element={<LoadingWheel />} />
+        ) : isLogged === 1 ? (
+          <Route index element={<Login reloadApp={setReload} />} />
+        ) : isLogged === 2 ? (
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route> // --------------------------------------------------
+        ) : (
+          // Pour le frontend
 
-              // Pour le frontend
-
-
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-              </Route>
-
-
-        }
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route>
+        )}
       </Routes>
     </Router>
   );
-
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

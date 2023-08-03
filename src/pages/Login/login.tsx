@@ -1,7 +1,9 @@
 import { Button, Stack, TextInput, Title } from "@mantine/core";
-import { createFormContext, UseFormReturnType } from "@mantine/form";
+import { createFormContext } from "@mantine/form";
 import { LoginFormValues } from "../../types/login.type";
 import { getFormSubmit } from "./submit";
+
+import { Dispatch, SetStateAction } from "react";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<LoginFormValues>();
@@ -24,7 +26,11 @@ function FormInputs() {
     </Stack>
   );
 }
-export function Login({ complete }: { complete: Function}) {
+export function Login({
+  reloadApp,
+}: {
+  reloadApp: Dispatch<SetStateAction<number>>;
+}) {
   const form = useForm({
     initialValues: {
       server: "https://griff.veagle.fr",
@@ -95,7 +101,7 @@ export function Login({ complete }: { complete: Function}) {
       </Title>
 
       <FormProvider form={form}>
-        <form onSubmit={getFormSubmit(form, complete)}>
+        <form onSubmit={getFormSubmit(form, reloadApp)}>
           <FormInputs />
           <Button mt="md" type="submit">
             Submit
