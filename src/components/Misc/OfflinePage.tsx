@@ -49,7 +49,8 @@ const OfflinePage = () => {
       <Text size="xl" style={{ marginTop: 5 }}>
         {isProcessing
           ? "Tentative de reconnexion..."
-          : 'Prochaine tentative dans {timeRemaining} seconde{timeRemaining !== 1 && "s"}'}
+          : `Prochaine tentative dans ${timeRemaining} seconde${timeRemaining !== 1 && "s"}`
+        }
       </Text>
     </div>
   );
