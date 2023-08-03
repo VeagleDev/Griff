@@ -4,7 +4,7 @@ import { Notifications } from "@mantine/notifications";
 import "./styles/style.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import globalStyle from "./styles/mantine.style";
 import { Login } from "./pages/Login/login";
@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     (async () => {
       if (isLogged === 99) return;
-      if(isLoading.current) return;
+      if (isLoading.current) return;
       isLoading.current = true;
 
       if (!(await get("serverUrl"))) {
@@ -65,7 +65,7 @@ function App() {
             console.log(res);
             setIsLogged(1);
           }
-          if(forceDisplay) setForceDisplay(false);
+          if (forceDisplay) setForceDisplay(false);
         })
         .catch((err) => {
           if (err.code === "ERR_NETWORK" || err.code === "ECONNABORTED") {
@@ -77,14 +77,14 @@ function App() {
             toast.error("La connexion au serveur a échoué");
             console.log(err);
             setIsLogged(1);
-            if(forceDisplay) setForceDisplay(false);
+            if (forceDisplay) setForceDisplay(false);
           }
         });
       isLoading.current = false;
     })();
   }, [reload]);
 
-  if(forceDisplay) return forcedElementRef.current;
+  if (forceDisplay) return forcedElementRef.current;
 
   return (
     <Router>
