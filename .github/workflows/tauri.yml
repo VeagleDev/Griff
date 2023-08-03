@@ -28,16 +28,19 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      - name: setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'pnpm'
+      
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
       
       - name: Install frontend dependencies
         run: pnpm install # change this to npm or pnpm depending on which one you use
+        
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+          
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
