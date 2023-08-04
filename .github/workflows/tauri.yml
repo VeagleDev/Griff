@@ -14,35 +14,39 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            src-tauri/target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - uses: actions/checkout@v3
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v2
         with:
-          version: 8
+          path: '~/.pnpm-store'
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       
+      - name: Install pnpm
+        run: curl -fsSL https://get.pnpm.io/install.sh | sh
+
       - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
-      
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+
       - name: Install frontend dependencies
         run: pnpm install # change this to npm or pnpm depending on which one you use
-        
-      - name: setup node
-        uses: actions/setup-node@v3
+
+      - name: Cache Cargo dependencies
+        uses: actions/cache@v2
         with:
-          node-version: 16
-          cache: 'pnpm'
-          
-      - uses: tauri-apps/tauri-action@v0
+          path: |
+            ~/.cargo/
+            src-tauri/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+      
+      - name: Deploy the Tauri app
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      
