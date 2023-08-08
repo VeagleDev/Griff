@@ -12,7 +12,6 @@ export function getLoginFormSubmit(
   reloadApp: Dispatch<SetStateAction<number>>
 ) {
   return form.onSubmit(async (values: LoginFormValues) => {
-
     const { set } = useConfig();
     const req = await axios
       .post(`${checkServerUrl(values.server)}/login`, {

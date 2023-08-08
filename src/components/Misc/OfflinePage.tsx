@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { Loader, Text } from "@mantine/core";
 import axios from "axios";
-import toast from "../../utils/toast.util";
 
 const OfflinePage = ({
   server,

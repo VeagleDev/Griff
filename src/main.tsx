@@ -118,14 +118,14 @@ function App() {
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ colorScheme: "dark", ...globalStyle }}
-    >
-      <Notifications />
-      <ModalsProvider>
-        <App />
-      </ModalsProvider>
-    </MantineProvider>
+  <MantineProvider
+    withGlobalStyles
+    withNormalizeCSS
+    theme={{ colorScheme: "dark", ...globalStyle }}
+  >
+    <Notifications />
+    <ModalsProvider>
+      <App />
+    </ModalsProvider>
+  </MantineProvider>
 );

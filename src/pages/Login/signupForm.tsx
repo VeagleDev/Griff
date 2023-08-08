@@ -1,81 +1,86 @@
-import {Button, Flex, Stack, TextInput} from "@mantine/core";
+import { Button, Flex, Stack, TextInput } from "@mantine/core";
 import { createFormContext } from "@mantine/form";
 import { SignupFormValues } from "../../types/login.type";
 import { getSignupFormSubmit } from "./submit";
-import {TbServer, TbUserCircle, TbMail, TbPassword, TbFaceId} from "react-icons/tb";
+import {
+  TbServer,
+  TbUserCircle,
+  TbMail,
+  TbPassword,
+  TbFaceId,
+} from "react-icons/tb";
 
-
-import {Dispatch, Ref, SetStateAction, useRef, useState} from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<SignupFormValues>();
 
-function FormInputs({formElement, submit} : {formElement: any, submit: Function}) {
+function FormInputs({
+  formElement,
+  submit,
+}: {
+  formElement: any;
+  submit: Function;
+}) {
   const formContext = useFormContext();
   const [step, setStep] = useState(1);
   return (
-    <Flex justify="space-evenly" direction="column" sx={{height: "100%"}}>
-      {((step === 1) ?
-        (
+    <Flex justify="space-evenly" direction="column" sx={{ height: "100%" }}>
+      {step === 1 ? (
+        <TextInput
+          placeholder={"Serveur"}
+          icon={<TbServer />}
+          {...formContext.getInputProps("server")}
+        />
+      ) : step === 2 ? (
+        <Stack spacing="md">
           <TextInput
-            placeholder={"Serveur"}
-            icon={<TbServer/>}
-            {...formContext.getInputProps("server")}
+            placeholder={"Nom d'utilisateur"}
+            icon={<TbUserCircle />}
+            {...formContext.getInputProps("username")}
           />
-        ) :
-        step === 2 ?
-          (
-            <Stack spacing="md">
-              <TextInput
-                placeholder={"Nom d'utilisateur"}
-                icon={<TbUserCircle/>}
-                {...formContext.getInputProps("username")}
-              />
-              <TextInput
-                placeholder={"Prénom"}
-                icon={<TbFaceId/>}
-                {...formContext.getInputProps("firstName")}
-              />
-              <TextInput
-                placeholder={"Email"}
-                icon={<TbMail/>}
-                {...formContext.getInputProps("email")}
-              />
-            </Stack>
-          )
-          :
-          step === 3 ?
-            (
-              <TextInput
-                placeholder={"Mot de passe"}
-                icon={<TbPassword/>}
-                {...formContext.getInputProps("password")}
-              />
-            )
-            : null)}
+          <TextInput
+            placeholder={"Prénom"}
+            icon={<TbFaceId />}
+            {...formContext.getInputProps("firstName")}
+          />
+          <TextInput
+            placeholder={"Email"}
+            icon={<TbMail />}
+            {...formContext.getInputProps("email")}
+          />
+        </Stack>
+      ) : step === 3 ? (
+        <TextInput
+          placeholder={"Mot de passe"}
+          icon={<TbPassword />}
+          {...formContext.getInputProps("password")}
+        />
+      ) : null}
 
       <Button
-        sx={{bottom: 0}}
+        sx={{ bottom: 0 }}
         onClick={() => {
           switch (step) {
             case 1:
-              if(!formContext.validateField("server").hasError)
-                setStep(2);
+              if (!formContext.validateField("server").hasError) setStep(2);
               break;
             case 2:
-              if(!formContext.validateField("username").hasError &&
+              if (
+                !formContext.validateField("username").hasError &&
                 !formContext.validateField("firstName").hasError &&
-                !formContext.validateField("email").hasError)
+                !formContext.validateField("email").hasError
+              )
                 setStep(3);
               break;
             case 3:
-              if(!formContext.validateField("password").hasError)
-                submit();
+              if (!formContext.validateField("password").hasError) submit();
           }
-        }}>{step < 3 ? "Suivant" : "Soumettre"}</Button>
+        }}
+      >
+        {step < 3 ? "Suivant" : "Soumettre"}
+      </Button>
     </Flex>
-
-
   );
 }
 export function SignupForm({
@@ -146,8 +151,11 @@ export function SignupForm({
 
   return (
     <FormProvider form={form}>
-      <form ref={formElement} style={{height: "70%", bottom: 0}}>
-        <FormInputs formElement={formElement} submit={getSignupFormSubmit(form, reloadApp)}/>
+      <form ref={formElement} style={{ height: "70%", bottom: 0 }}>
+        <FormInputs
+          formElement={formElement}
+          submit={getSignupFormSubmit(form, reloadApp)}
+        />
       </form>
     </FormProvider>
   );
