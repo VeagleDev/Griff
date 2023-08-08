@@ -1,7 +1,7 @@
 import { Button, Stack, TextInput, Title } from "@mantine/core";
 import { createFormContext } from "@mantine/form";
 import { LoginFormValues } from "../../types/login.type";
-import { getFormSubmit } from "./submit";
+import { getLoginFormSubmit } from "./submit";
 
 import { Dispatch, SetStateAction } from "react";
 
@@ -11,14 +11,12 @@ const [FormProvider, useFormContext, useForm] =
 function FormInputs() {
   const formContext = useFormContext();
   return (
-    <Stack spacing="xs">
+    <Stack spacing="lg">
       <TextInput label={"Serveur"} {...formContext.getInputProps("server")} />
       <TextInput
         label={"Nom d'utilisateur"}
         {...formContext.getInputProps("username")}
       />
-      <TextInput label={"Prénom"} {...formContext.getInputProps("firstName")} />
-      <TextInput label={"Email"} {...formContext.getInputProps("email")} />
       <TextInput
         label={"Mot de passe"}
         {...formContext.getInputProps("password")}
@@ -26,7 +24,7 @@ function FormInputs() {
     </Stack>
   );
 }
-export function Login({
+export function LoginForm({
   reloadApp,
 }: {
   reloadApp: Dispatch<SetStateAction<number>>;
@@ -36,8 +34,6 @@ export function Login({
       server: "https://griff.veagle.fr",
       username: "pierrbt",
       password: "123456",
-      firstName: "Pierre",
-      email: "pe08bt@gmail.com",
     },
     validate: {
       server: (value: string) => {
@@ -67,47 +63,17 @@ export function Login({
           return "Le mot de passe est requis";
         }
       },
-      firstName: (value: string) => {
-        if (!value) {
-          return "Le prénom est requis";
-        }
-        if (value[0] !== value[0].toUpperCase()) {
-          return "Le prénom doit commencer par une majuscule";
-        }
-      },
-      email: (value: string) => {
-        if (!value) {
-          return "L'email est requis";
-        }
-        if (
-          !value.match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          )
-        ) {
-          return "L'email doit être valide";
-        }
-      },
     },
   });
 
   return (
-    <Stack
-      spacing="lg"
-      align="stretch"
-      sx={{ width: "80%", margin: "15px auto 0 auto" }}
-    >
-      <Title order={1} bottom="15px">
-        Login
-      </Title>
-
-      <FormProvider form={form}>
-        <form onSubmit={getFormSubmit(form, reloadApp)}>
-          <FormInputs />
-          <Button mt="md" type="submit">
-            Submit
-          </Button>
-        </form>
-      </FormProvider>
-    </Stack>
+    <FormProvider form={form}>
+      <form onSubmit={getLoginFormSubmit(form, reloadApp)}>
+        <FormInputs />
+        <Button mt="md" type="submit">
+          Connexion
+        </Button>
+      </form>
+    </FormProvider>
   );
 }
