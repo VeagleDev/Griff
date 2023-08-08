@@ -11,6 +11,8 @@ export function Login({
 }) {
   const [signIn, toggle] = React.useState(true);
   return (
+    <div
+      style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", marginTop:"-10%"}}>
     <Components.Container>
       <Components.SignUpContainer signingIn={signIn}>
         <Components.Form>
@@ -52,5 +54,6 @@ export function Login({
 
       </Components.OverlayContainer>
     </Components.Container>
+    </div>
   );
 }

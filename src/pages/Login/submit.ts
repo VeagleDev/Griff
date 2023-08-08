@@ -13,7 +13,7 @@ export function getLoginFormSubmit(
 ) {
   return form.onSubmit(async (values: LoginFormValues) => {
     const { set } = useConfig();
-    const req = await axios
+    const data = await axios
       .post(`${checkServerUrl(values.server)}/login`, {
         pseudo: values.username,
         password: values.password,
@@ -33,9 +33,10 @@ export function getLoginFormSubmit(
         toast.error("Erreur lors de la connexion : " + error.message);
         return false;
       });
-    if (!req) return false;
-    const userData = req.data.user as User;
-    const token = req.data.token as string;
+    if (!data) return false;
+
+    const userData = data.user as User;
+    const token = data.token as string;
 
     const config = {
       serverUrl: checkServerUrl(values.server),

@@ -1,27 +1,51 @@
-import { Button, Stack, TextInput } from "@mantine/core";
+import {Button, Flex, Stack, TextInput, Title} from "@mantine/core";
 import { createFormContext } from "@mantine/form";
 import { LoginFormValues } from "../../types/login.type";
 import { getLoginFormSubmit } from "./submit";
 
 import { Dispatch, SetStateAction } from "react";
+import { TbPassword, TbServer, TbUserCircle} from "react-icons/tb";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<LoginFormValues>();
 
-function FormInputs() {
+function FormInputs({
+                      submit,
+                    }: {
+  submit: Function;
+}) {
   const formContext = useFormContext();
   return (
-    <Stack spacing="lg">
-      <TextInput label={"Serveur"} {...formContext.getInputProps("server")} />
-      <TextInput
-        label={"Nom d'utilisateur"}
-        {...formContext.getInputProps("username")}
-      />
-      <TextInput
-        label={"Mot de passe"}
-        {...formContext.getInputProps("password")}
-      />
-    </Stack>
+    <Flex justify="space-between" direction="column" sx={{ height: "100%" }}>
+      <Title>Connectez-vous</Title>
+      <Stack spacing="md">
+        <TextInput
+          placeholder={"Serveur"}
+          icon={<TbServer />}
+          {...formContext.getInputProps("server")}
+        />
+        <TextInput
+          placeholder={"Nom d'utilisateur"}
+          icon={<TbUserCircle />}
+          {...formContext.getInputProps("username")}
+        />
+        <TextInput
+          placeholder={"Mot de passe"}
+          icon={<TbPassword />}
+          {...formContext.getInputProps("password")}
+        />
+      </Stack>
+
+      <Button
+        sx={{ bottom: 0 }}
+        onClick={() => {
+          if(!formContext.validate().hasErrors)
+            submit();
+        }}
+      >
+        Connexion
+      </Button>
+    </Flex>
   );
 }
 export function LoginForm({
@@ -31,7 +55,7 @@ export function LoginForm({
 }) {
   const form = useForm({
     initialValues: {
-      server: "https://griff.veagle.fr",
+      server: "http://localhost:3000",
       username: "pierrbt",
       password: "123456",
     },
@@ -68,11 +92,8 @@ export function LoginForm({
 
   return (
     <FormProvider form={form}>
-      <form onSubmit={getLoginFormSubmit(form, reloadApp)}>
-        <FormInputs />
-        <Button mt="md" type="submit">
-          Connexion
-        </Button>
+      <form style={{ height: "80%" }}>
+        <FormInputs submit={getLoginFormSubmit(form, reloadApp)}/>
       </form>
     </FormProvider>
   );

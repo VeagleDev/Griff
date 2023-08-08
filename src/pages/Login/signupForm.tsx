@@ -16,10 +16,8 @@ const [FormProvider, useFormContext, useForm] =
   createFormContext<SignupFormValues>();
 
 function FormInputs({
-  formElement,
   submit,
 }: {
-  formElement: any;
   submit: Function;
 }) {
   const formContext = useFormContext();
@@ -148,13 +146,10 @@ export function SignupForm({
     },
   });
 
-  const formElement = useRef<HTMLFormElement>(null);
-
   return (
     <FormProvider form={form}>
-      <form ref={formElement} style={{ height: "70%", bottom: 0 }}>
+      <form style={{ height: "80%" }}>
         <FormInputs
-          formElement={formElement}
           submit={getSignupFormSubmit(form, reloadApp)}
         />
       </form>
