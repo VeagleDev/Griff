@@ -29,7 +29,7 @@ export function getLoginFormSubmit(
         return response.data;
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         toast.error("Erreur lors de la connexion : " + error.message);
         return false;
       });
@@ -51,9 +51,7 @@ export function getLoginFormSubmit(
     return await set("", "", config)
       .then(async (val) => {
         if (val) {
-          console.log("Reload app");
           reloadApp(1);
-          console.log("Reload app done");
         } else {
           console.error("Error while saving config");
           toast.error("Erreur lors de la connexion");
@@ -70,7 +68,6 @@ export function getSignupFormSubmit(
   reloadApp: Dispatch<SetStateAction<number>>
 ) {
   return form.onSubmit(async (values: SignupFormValues) => {
-    console.log("signup");
     const { set } = useConfig();
     let token = "";
     if (
@@ -93,7 +90,7 @@ export function getSignupFormSubmit(
           return true;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           toast.error("Erreur lors de la connexion : " + error.message);
           return false;
         }))
@@ -113,9 +110,7 @@ export function getSignupFormSubmit(
     return await set("", "", config)
       .then(async (val) => {
         if (val) {
-          console.log("Reload app");
           reloadApp(1);
-          console.log("Reload app done");
         } else {
           console.error("Error while saving config");
           toast.error("Erreur lors de la connexion");

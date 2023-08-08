@@ -58,20 +58,17 @@ function App() {
           }
         )
         .then((res) => {
-          console.log("res");
           if (res.status === 200 && res.data.ok) {
             setIsLogged(2);
-            console.log(res);
           } else {
             toast.error("Le token enregistré a été refusé");
-            console.log(res);
             setIsLogged(1);
           }
           if (forceDisplay) setForceDisplay(false);
         })
         .catch((err) => {
           if (err.code === "ERR_NETWORK" || err.code === "ECONNABORTED") {
-            console.log("Pas de connexion aux internets");
+            console.warn("Pas de connexion aux internets");
             toast.error("Vous n'êtes pas connecté à internet");
             setForceDisplay(true);
             forcedElementRef.current = (
@@ -83,7 +80,7 @@ function App() {
             );
           } else {
             toast.error("La connexion au serveur a échoué");
-            console.log(err);
+            console.error(err);
             setIsLogged(1);
             if (forceDisplay) setForceDisplay(false);
           }
