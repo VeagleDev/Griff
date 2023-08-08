@@ -22,27 +22,34 @@ export function Login({
           <LoginForm reloadApp={reloadApp} />
         </Components.Form>
       </Components.SignInContainer>
+
       <Components.OverlayContainer signingIn={signIn}>
+
         <Components.Overlay signingIn={signIn}>
+
+
           <Components.LeftOverlayPanel signingIn={signIn}>
-            <Components.Title>Content de vous revoir !</Components.Title>
+            <Components.Title>Bienvenue !</Components.Title>
             <Components.Paragraph>
-              Connectez vous pour accéder à Griff
+              Entrez vos informations personnelles et commencez avec Griff !
             </Components.Paragraph>
             <Components.GhostButton onClick={() => toggle(true)}>
               Se connecter
             </Components.GhostButton>
           </Components.LeftOverlayPanel>
+
+
           <Components.RightOverlayPanel signingIn={signIn}>
-            <Components.Title>Bienvenue !</Components.Title>
+            <Components.Title>Content de vous revoir !</Components.Title>
             <Components.Paragraph>
-              Entrez vos informations personnelles et commencez avec Griff !
+              Connectez vous pour accéder à Griff
             </Components.Paragraph>
             <Components.GhostButton onClick={() => toggle(false)}>
               S'inscrire
             </Components.GhostButton>
           </Components.RightOverlayPanel>
         </Components.Overlay>
+
       </Components.OverlayContainer>
     </Components.Container>
   );

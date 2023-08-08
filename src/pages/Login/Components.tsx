@@ -57,7 +57,7 @@ export const Form = styled.div`
   background-color: #292929;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   padding: 0 50px;
   height: 100%;

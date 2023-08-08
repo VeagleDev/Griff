@@ -1,4 +1,4 @@
-import { Button, Flex, Stack, TextInput } from "@mantine/core";
+import {Button, Flex, Stack, TextInput, Title} from "@mantine/core";
 import { createFormContext } from "@mantine/form";
 import { SignupFormValues } from "../../types/login.type";
 import { getSignupFormSubmit } from "./submit";
@@ -25,7 +25,8 @@ function FormInputs({
   const formContext = useFormContext();
   const [step, setStep] = useState(1);
   return (
-    <Flex justify="space-evenly" direction="column" sx={{ height: "100%" }}>
+    <Flex justify="space-between" direction="column" sx={{ height: "100%" }}>
+      <Title>Inscrivez-vous</Title>
       {step === 1 ? (
         <TextInput
           placeholder={"Serveur"}
