@@ -16,6 +16,8 @@ import axios from "axios";
 import toast from "./utils/toast.util";
 import OfflinePage from "./components/Misc/OfflinePage";
 import { Login } from "./pages/Login/Login";
+import "./services/manager.service";
+
 function App() {
   const [isLogged, setIsLogged] = useState(0); // 0 pour stable, 99 pour dev
   const [reload, setReload] = useState(0);
@@ -121,7 +123,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     theme={{ colorScheme: "dark", ...globalStyle }}
   >
     <Notifications />
-    <ModalsProvider>
+    <ModalsProvider
+      modalProps={{
+          style: {left: 0},
+          centered: true
+        }}
+    >
       <App />
     </ModalsProvider>
   </MantineProvider>
