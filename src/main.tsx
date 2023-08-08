@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import globalStyle from "./styles/mantine.style";
-import { Login } from "./pages/Login/login";
 import { Layout } from "./pages/layout";
 import Home from "./pages/Home";
 import LoadingWheel from "./components/Misc/LoadingWheel";
@@ -16,6 +15,7 @@ import useConfig from "./hooks/useConfig";
 import axios from "axios";
 import toast from "./utils/toast.util";
 import OfflinePage from "./components/Misc/OfflinePage";
+import { Login } from "./pages/Login/Login";
 function App() {
   const [isLogged, setIsLogged] = useState(0); // 0 pour stable, 99 pour dev
   const [reload, setReload] = useState(0);
@@ -118,7 +118,6 @@ function App() {
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
@@ -129,5 +128,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <App />
       </ModalsProvider>
     </MantineProvider>
-  </React.StrictMode>
 );
