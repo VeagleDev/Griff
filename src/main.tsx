@@ -17,6 +17,7 @@ import toast from "./utils/toast.util";
 import OfflinePage from "./components/Misc/OfflinePage";
 import { Login } from "./pages/Login/Login";
 import "./services/manager.service";
+import { Command } from "@tauri-apps/api/shell";
 
 function App() {
   const [isLogged, setIsLogged] = useState(0); // 0 pour stable, 99 pour dev
@@ -115,6 +116,14 @@ function App() {
     </Router>
   );
 }
+
+const command = Command.sidecar('ressources/aria2c.exe', ['--enable-rpc=true'])
+command.execute().then((result) => {
+  console.log(result)
+})
+  .catch((error) => {
+    console.error(error)
+  });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <MantineProvider

@@ -2,6 +2,7 @@
 //#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::WindowEvent;
+use tauri::api::process::{Command, CommandEvent};
 
 fn main() {
     tauri::Builder::default()
@@ -12,4 +13,6 @@ fn main() {
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+
+
 }

@@ -15,7 +15,11 @@
       "all": true,
       "shell": {
         "all": true,
-        "open": true
+        "open": true,
+        "sidecar": true,
+        "scope": [
+          { "name": "ressources/aria2c.exe", "sidecar":  true, "args":  ["--enable-rpc=true"]}
+        ]
       },
       "fs": {
         "all": true,
@@ -54,9 +58,11 @@
       "longDescription": "Griff is a self-hosted game launcher made by Veagle using Tauri.",
       "windows": {
         "wix": {
-
         }
-      }
+      },
+      "externalBin": [
+        "ressources/aria2c.exe"
+      ]
     },
   "security": {
     "csp": null
