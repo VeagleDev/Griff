@@ -18,7 +18,11 @@
         "open": true,
         "sidecar": true,
         "scope": [
-          { "name": "ressources/aria2c.exe", "sidecar":  true, "args":  ["--enable-rpc=true"]}
+          {
+            "name": "ressources/aria2c.exe",
+            "sidecar": true,
+            "args": ["--enable-rpc=true"]
+          }
         ]
       },
       "fs": {
@@ -32,10 +36,7 @@
         "removeFile": true,
         "renameFile": true,
         "exists": true,
-        "scope": [
-          "$APPCONFIG\\*",
-          "$APPCONFIG"
-        ]
+        "scope": ["$APPCONFIG\\*", "$APPCONFIG"]
       },
       "path": {
         "all": true
@@ -57,29 +58,25 @@
       "shortDescription": "Griff is a game launcher made by Veagle",
       "longDescription": "Griff is a self-hosted game launcher made by Veagle using Tauri.",
       "windows": {
-        "wix": {
-        }
+        "wix": {}
       },
-      "externalBin": [
-        "ressources/aria2c.exe"
-      ]
+      "externalBin": ["ressources/aria2c.exe"]
     },
-  "security": {
-    "csp": null
-  },
-  "windows": [
-    {
-      "fullscreen": false,
-      "resizable": true,
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
 
-      "title": "Griff",
-      "width": 1100,
-      "height": 700,
-      "minWidth": 800,
-      "minHeight": 500,
-      "theme": "Dark"
-    }
-  ]
+        "title": "Griff",
+        "width": 1100,
+        "height": 700,
+        "minWidth": 800,
+        "minHeight": 500,
+        "theme": "Dark"
+      }
+    ]
   }
 }
-

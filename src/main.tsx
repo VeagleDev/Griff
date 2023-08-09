@@ -117,12 +117,14 @@ function App() {
   );
 }
 
-const command = Command.sidecar('ressources/aria2c.exe', ['--enable-rpc=true'])
-command.execute().then((result) => {
-  console.log(result)
-})
+const command = Command.sidecar("ressources/aria2c.exe", ["--enable-rpc=true"]);
+command
+  .execute()
+  .then((result) => {
+    console.log(result);
+  })
   .catch((error) => {
-    console.error(error)
+    console.error(error);
   });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
