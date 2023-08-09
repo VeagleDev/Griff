@@ -1,7 +1,6 @@
-
 export interface DownloadInfo {
   gid: string;
-  status: 'active' | 'waiting' | 'paused' | 'error' | 'complete' | 'removed';
+  status: "active" | "waiting" | "paused" | "error" | "complete" | "removed";
   progress: number;
   downloadSpeed: number;
   totalLength: number;

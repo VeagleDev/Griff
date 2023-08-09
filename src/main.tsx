@@ -125,9 +125,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Notifications />
     <ModalsProvider
       modalProps={{
-          style: {left: 0},
-          centered: true
-        }}
+        style: { left: 0 },
+        centered: true,
+      }}
     >
       <App />
     </ModalsProvider>

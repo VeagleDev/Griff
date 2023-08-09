@@ -1,19 +1,15 @@
-import {Button, Flex, Stack, TextInput, Title} from "@mantine/core";
+import { Button, Flex, Stack, TextInput, Title } from "@mantine/core";
 import { createFormContext } from "@mantine/form";
 import { LoginFormValues } from "../../types/login.type";
 import { getLoginFormSubmit } from "./submit";
 
 import { Dispatch, SetStateAction } from "react";
-import { TbPassword, TbServer, TbUserCircle} from "react-icons/tb";
+import { TbPassword, TbServer, TbUserCircle } from "react-icons/tb";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<LoginFormValues>();
 
-function FormInputs({
-                      submit,
-                    }: {
-  submit: Function;
-}) {
+function FormInputs({ submit }: { submit: Function }) {
   const formContext = useFormContext();
   return (
     <Flex justify="space-between" direction="column" sx={{ height: "100%" }}>
@@ -39,8 +35,7 @@ function FormInputs({
       <Button
         sx={{ bottom: 0 }}
         onClick={() => {
-          if(!formContext.validate().hasErrors)
-            submit();
+          if (!formContext.validate().hasErrors) submit();
         }}
       >
         Connexion
@@ -93,7 +88,7 @@ export function LoginForm({
   return (
     <FormProvider form={form}>
       <form style={{ height: "80%" }}>
-        <FormInputs submit={getLoginFormSubmit(form, reloadApp)}/>
+        <FormInputs submit={getLoginFormSubmit(form, reloadApp)} />
       </form>
     </FormProvider>
   );

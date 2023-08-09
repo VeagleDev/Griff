@@ -1,4 +1,4 @@
-import {Button, Flex, Stack, TextInput, Title} from "@mantine/core";
+import { Button, Flex, Stack, TextInput, Title } from "@mantine/core";
 import { createFormContext } from "@mantine/form";
 import { SignupFormValues } from "../../types/login.type";
 import { getSignupFormSubmit } from "./submit";
@@ -10,16 +10,12 @@ import {
   TbFaceId,
 } from "react-icons/tb";
 
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<SignupFormValues>();
 
-function FormInputs({
-  submit,
-}: {
-  submit: Function;
-}) {
+function FormInputs({ submit }: { submit: Function }) {
   const formContext = useFormContext();
   const [step, setStep] = useState(1);
   return (
@@ -149,9 +145,7 @@ export function SignupForm({
   return (
     <FormProvider form={form}>
       <form style={{ height: "80%" }}>
-        <FormInputs
-          submit={getSignupFormSubmit(form, reloadApp)}
-        />
+        <FormInputs submit={getSignupFormSubmit(form, reloadApp)} />
       </form>
     </FormProvider>
   );
