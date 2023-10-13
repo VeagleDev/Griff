@@ -20,7 +20,7 @@ import "./services/manager.service";
 import { Command } from "@tauri-apps/api/shell";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(0); // 0 pour stable, 99 pour dev
+  const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev
   const [reload, setReload] = useState(0);
   const [forceDisplay, setForceDisplay] = useState(false);
   const forcedElementRef = useRef(<></>);
