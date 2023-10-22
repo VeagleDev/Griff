@@ -14,7 +14,7 @@ class JSONRPCClient extends EventEmitter {
       this,
       { WebSocket: window.WebSocket, fetch: window.fetch.bind(this) },
       this.constructor.defaultOptions,
-      options
+      options,
     );
   }
 

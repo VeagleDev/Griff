@@ -55,7 +55,7 @@ const useConfig = () => {
                 .then(() => true)
                 .catch(() => {
                   toast.error(
-                    "Impossible d'écrire dans le fichier de configuration."
+                    "Impossible d'écrire dans le fichier de configuration.",
                   );
                   return false;
                 });
@@ -71,7 +71,7 @@ const useConfig = () => {
             .then(() => true)
             .catch(() => {
               toast.error(
-                "Impossible d'écrire dans le fichier de configuration."
+                "Impossible d'écrire dans le fichier de configuration.",
               );
               return false;
             });
@@ -84,7 +84,7 @@ const useConfig = () => {
           })
           .catch((err) => {
             toast.error(
-              "Impossible d'écrire dans le fichier de configuration."
+              "Impossible d'écrire dans le fichier de configuration.",
             );
             console.error(err);
             return false;

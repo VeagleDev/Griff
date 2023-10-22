@@ -9,31 +9,25 @@ import { User } from "../../types/user.type";
 
 export function getLoginFormSubmit(
   form: any,
-  reloadApp: Dispatch<SetStateAction<number>>
+  reloadApp: Dispatch<SetStateAction<number>>,
 ) {
   return form.onSubmit(async (values: LoginFormValues) => {
     const { set } = useConfig();
-    const data = await axios
-      .post(`${checkServerUrl(values.server)}/login`, {
+    let data: any = null;
+    try {
+      const req = await axios.post(`${checkServerUrl(values.server)}/login`, {
         pseudo: values.username,
         password: values.password,
-      })
-      .then((response) => {
-        if (response.data.ok) {
-          toast.success("Connexion réussie");
-        } else {
-          console.error(response.data.message);
-          console.error(response.data.error);
-          throw new Error(response.data.message);
-        }
-        return response.data;
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Erreur lors de la connexion : " + error.message);
-        return false;
       });
-    if (!data) return false;
+
+      if (req.status !== 200) throw new Error(req.statusText);
+      data = req.data;
+      toast.success("Connexion réussie");
+    } catch (error: any) {
+      console.error(error);
+      toast.error("Erreur lors de la connexion : " + error.message);
+      return false;
+    }
 
     const userData = data.user as User;
     const token = data.token as string;
@@ -65,37 +59,32 @@ export function getLoginFormSubmit(
 
 export function getSignupFormSubmit(
   form: any,
-  reloadApp: Dispatch<SetStateAction<number>>
+  reloadApp: Dispatch<SetStateAction<number>>,
 ) {
   return form.onSubmit(async (values: SignupFormValues) => {
     const { set } = useConfig();
     let token = "";
-    if (
-      !(await axios
-        .post(`${checkServerUrl(values.server)}/user`, {
+
+    try {
+      const response = await axios.post(
+        `${checkServerUrl(values.server)}/users`,
+        {
           pseudo: values.username,
           password: values.password,
           email: values.email,
           firstName: values.firstName,
-        })
-        .then((response) => {
-          if (response.data.ok) {
-            token = response.data.token;
-            toast.success("Utilisateur créé avec succès");
-          } else {
-            console.error(response.data.message);
-            console.error(response.data.error);
-            throw new Error(response.data.message);
-          }
-          return true;
-        })
-        .catch((error) => {
-          console.error(error);
-          toast.error("Erreur lors de la connexion : " + error.message);
-          return false;
-        }))
-    )
+        },
+      );
+
+      if (response.status !== 200) throw new Error(response.statusText);
+
+      token = response.data.token;
+      toast.success("Utilisateur créé avec succès");
+    } catch (error: any) {
+      console.error(error);
+      toast.error("Erreur lors de la connexion : " + error.message);
       return;
+    }
 
     const config = {
       serverUrl: checkServerUrl(values.server),
