@@ -45,7 +45,7 @@ const OfflinePage = ({
               "Content-Type": "application/json",
               Authorization: "Bearer " + userToken,
             },
-          }
+          },
         )
         .then((res) => {
           if (res.status === 200 && res.data.ok) {

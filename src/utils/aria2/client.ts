@@ -36,7 +36,7 @@ class Aria2Manager {
   async tellStatus(gid: string): Promise<DownloadInfo | null> {
     const res = (await this.callAria2Method<DownloadInfo>(
       "tellStatus",
-      gid
+      gid,
     )) as DownloadInfo;
     return {
       gid: res.gid ?? "",
