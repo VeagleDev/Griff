@@ -21,7 +21,7 @@
   background: $bg-secondary;
 
   .vertical-stripe {
-    right: -1px;
+    right: 0;
   }
 
   .profile-section {
@@ -36,7 +36,7 @@
         width: 50px;
         height: 50px;
         border-radius: 100%;
-        background: #ffffff15;
+        background: $stripe;
         margin-right: 10px;
       }
 
@@ -45,8 +45,14 @@
         .icon {
           width: 14px;
           height: 14px;
-          opacity: 60%;
+          opacity: 100%;
           margin-right: 5px;
+        }
+      }
+
+      .flex-col {
+        h2 {
+          margin-bottom: 4px;
         }
       }
     }
@@ -75,7 +81,7 @@
       .nav-icon {
         width: 30px;
         height: 30px;
-        padding: 0 25px;
+        margin: 0 25px;
         opacity: 60%;
       }
 

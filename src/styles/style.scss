@@ -18,10 +18,6 @@ body {
   background: $bg-primary;
 }
 
-.auto-app-layout {
-  display: flex;
-}
-
 button,
 input {
   border: 0;
@@ -90,6 +86,7 @@ h1 {
 h2 {
   font-weight: 600;
   font-size: 16px;
+  letter-spacing: 0.2px;
 }
 
 .cta {
@@ -144,6 +141,7 @@ main {
   position: relative;
   width: calc(100% - $navbar-w);
   margin-left: $navbar-w;
+  background: $bg-primary;
 }
 
 .full-size-layer {

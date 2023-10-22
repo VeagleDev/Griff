@@ -5,7 +5,7 @@ function Home() {
   return (
     <main className="home">
       <div className="landing-page">
-        <div>
+        <div className="flex-col">
           <h2 className="top-title">#1 top tendance</h2>
           <h1>forza horizon 5</h1>
           <p>
@@ -25,6 +25,19 @@ function Home() {
 
           <div className="gradient-h"></div>
           <div className="gradient-w"></div>
+        </div>
+      </div>
+
+      <div className="flex-col carousel-ctnr">
+        <h2>Recommandés</h2>
+
+        <div className="carousel">
+          <div className="cell"></div>
+          <div className="cell"></div>
+          <div className="cell"></div>
+          <div className="cell"></div>
+          <div className="cell"></div>
+          <div className="cell"></div>
         </div>
       </div>
     </main>

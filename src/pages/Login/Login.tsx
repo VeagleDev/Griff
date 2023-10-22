@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
 import * as Components from "./Components";
-import "./styles.css";
 import { SignupForm } from "./signupForm";
 import { LoginForm } from "./loginForm";
 
