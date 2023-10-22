@@ -4,7 +4,7 @@ import { Notifications } from "@mantine/notifications";
 import "./styles/style.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import globalStyle from "./styles/mantine.style";
 import { Layout } from "./pages/layout";
@@ -25,7 +25,6 @@ function App() {
   const [forceDisplay, setForceDisplay] = useState(false);
   const forcedElementRef = useRef(<></>);
   const isLoading = useRef(false);
-
 
   const { get } = useConfig();
   useEffect(() => {
@@ -59,7 +58,7 @@ function App() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + token,
             },
-          }
+          },
         )
         .then((res) => {
           if (res.status === 200 && res.data.ok) {
@@ -96,25 +95,25 @@ function App() {
   if (forceDisplay) return forcedElementRef.current;
 
   return (
-      <Router>
-        <Routes>
-          {isLogged === 0 ? ( // Utilisé pour le backend ----------------------
-            <Route index element={<LoadingWheel />} />
-          ) : isLogged === 1 ? (
-            <Route index element={<Login reloadApp={setReload} />} />
-          ) : isLogged === 2 ? (
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-            </Route> // --------------------------------------------------
-          ) : (
-            // Pour le frontend
+    <Router>
+      <Routes>
+        {isLogged === 0 ? ( // Utilisé pour le backend ----------------------
+          <Route index element={<LoadingWheel />} />
+        ) : isLogged === 1 ? (
+          <Route index element={<Login reloadApp={setReload} />} />
+        ) : isLogged === 2 ? (
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route> // --------------------------------------------------
+        ) : (
+          // Pour le frontend
 
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-            </Route>
-          )}
-        </Routes>
-      </Router>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route>
+        )}
+      </Routes>
+    </Router>
   );
 }
 
@@ -143,5 +142,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     >
       <App />
     </ModalsProvider>
-  </MantineProvider>
+  </MantineProvider>,
 );
