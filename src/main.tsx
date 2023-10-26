@@ -1,16 +1,16 @@
 import { MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
-import "./styles/style.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
-import globalStyle from "./styles/mantine.style";
+//il me tape sur le systeme celui la
+// import globalStyle from "./styles/mantine.style";
 import { Layout } from "./pages/layout";
 import Home from "./pages/Home";
+import Game from "./pages/Game";
 import LoadingWheel from "./components/Misc/LoadingWheel";
-import "./styles/app.scss";
 import useConfig from "./hooks/useConfig";
 import axios from "axios";
 import toast from "./utils/toast.util";
@@ -110,6 +110,7 @@ function App() {
 
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="/game" element={<Game />} />
           </Route>
         )}
       </Routes>
@@ -128,19 +129,20 @@ command
   });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <MantineProvider
-    withGlobalStyles
-    withNormalizeCSS
-    theme={{ colorScheme: "dark", ...globalStyle }}
-  >
-    <Notifications />
-    <ModalsProvider
-      modalProps={{
-        style: { left: 0 },
-        centered: true,
-      }}
-    >
+  //il veut jamais la fermer celui la 
+  // <MantineProvider
+  //   withGlobalStyles
+  //   withNormalizeCSS
+  //   theme={{ colorScheme: "dark", ...globalStyle }}
+  // >
+  //   <Notifications />
+  //   <ModalsProvider
+  //     modalProps={{
+  //       style: { left: 0 },
+  //       centered: true,
+  //     }}
+  //   >
       <App />
-    </ModalsProvider>
-  </MantineProvider>
+  //   </ModalsProvider>
+  // </MantineProvider>
 );

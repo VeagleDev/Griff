@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./index.scss";
-import { DownloadInfo } from "../../types/downloads.type";
 
 function Navbar() {
   return (
-    <div className="fixed full-size-layer">
+    <div className="fixed">
       <div className="top-nav"></div>
       <div className="navbar flex-col">
         <div className="vertical-stripe"></div>

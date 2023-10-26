@@ -13,7 +13,7 @@ function Home() {
             Playground Games. Il prend place dans les villes et magnifiques
             décors du Mexique.
           </p>
-          <Link to="/" className="cta">
+          <Link to="/game" className="cta">
             <h2>télécharger</h2>
           </Link>
         </div>

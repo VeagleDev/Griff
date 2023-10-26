@@ -18,6 +18,17 @@ body {
   background: $bg-primary;
 }
 
+.mantine-Modal-inner {
+  left: 0;
+}
+
+html,
+body,
+#root,
+#app > div {
+  height: 100%;
+}
+
 button,
 input {
   border: 0;
@@ -139,9 +150,8 @@ p {
 
 main {
   position: relative;
-  width: calc(100% - $navbar-w);
+  width: calc(100% - $navbar-w - 60px);
   margin-left: $navbar-w;
-  background: $bg-primary;
 }
 
 .full-size-layer {
@@ -185,4 +195,9 @@ main {
   background: $stripe;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.pad-auto {
+  padding-left: 60px;
+  width: calc(100% - 60px);
 }
