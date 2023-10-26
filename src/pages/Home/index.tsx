@@ -6,23 +6,16 @@ import {OnlineGame} from "../../types/game.type";
 import {GameContext} from "../layout";
 import {useContext} from "react";
 
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
 
 function Home() {
   const flickityRef = useRef(null);
-
   const games = useContext(GameContext);
-  const [ranId, setRandId] = useState(0);
-
-  const generateRandomNumber = () => {
-    const min = 0;
-    const max = 5;
-    const randomNum = Math.floor(Math.random() * (games.length - 0 + 1)) + 0;
-    setRandId(randomNum);
-  };
+  const game = games[getRandomInt(games.length)];
 
   useEffect(() => {
-    generateRandomNumber();
-
     flickityRef.current = new Flickity('.carousel', {
       cellAlign: 'left',
       wrapAround: true,
@@ -36,16 +29,16 @@ function Home() {
       <div className="landing-page">
         <div className="flex-col">
           <h2 className="top-title">#1 top tendance</h2>
-          <h1>{games[ranId].name}</h1>
+          <h1>{game.name}</h1>
           <p>
-            {games[ranId].props.description}
+            {game.props.description}
           </p>
-          <Link to="/game" state={games[ranId].id} className="cta">
+          <Link to="/game" state={game.id} className="cta">
             <h2>télécharger</h2>
           </Link>
         </div>
 
-        <div className="bg" style={{backgroundImage: `url(${games[ranId].props.background})`}}>
+        <div className="bg" style={{backgroundImage: `url(${game.props.background})`}}>
           <div className="gradient-h"></div>
           <div className="gradient-w"></div>
         </div>
@@ -55,14 +48,14 @@ function Home() {
         <h2>Recommandés</h2>
 
         <div className="carousel">        
-          {games.map((game: OnlineGame) => (
-            <Link to="/game" state={game.id} className="carousel-cell" key={game.id}>
+          {games.map((gameCell: OnlineGame) => (
+            <Link to="/game" state={gameCell.id} className="carousel-cell" key={gameCell.id}>
               <div className="img-ctnr">
-                <img src={game.props.background} />
+                <img src={gameCell.props.background} />
               </div>
 
-              <h5>multijoueur</h5>
-              <h2>{game.name}</h2>
+              <h5>Multijoueur</h5>
+              <h2>{gameCell.name}</h2>
             </Link>
           ))}
         </div>
