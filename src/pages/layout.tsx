@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import { createContext, useEffect, useState } from "react";
-import {InstalledGame, OnlineGame} from "../types/game.type";
+import { InstalledGame, OnlineGame } from "../types/game.type";
 import api from "../services/api.service";
 import toast from "../utils/toast.util";
-import {DownloadInfo} from "../types/downloads.type";
+import { DownloadInfo } from "../types/downloads.type";
 export const GameContext = createContext([] as OnlineGame[]);
 export const InstalledGameContext = createContext([] as InstalledGame[]);
 export const DownloadInfosContext = createContext([] as DownloadInfo[]);
@@ -131,7 +131,7 @@ export function Layout() {
       version: "v15.0",
       installed: true,
       size: 2048, // in megabytes
-    }
+    },
   ] as InstalledGame[]);
 
   useEffect(() => {

@@ -2,8 +2,7 @@ import { MantineThemeOverride } from "@mantine/core";
 
 export default {
   colors: {
-    victoria: [
-    ],
+    victoria: [],
   },
   primaryColor: "victoria",
   components: {

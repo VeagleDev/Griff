@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./index.scss";
 
-
-
 function Navbar() {
   return (
     <div className="fixed">
