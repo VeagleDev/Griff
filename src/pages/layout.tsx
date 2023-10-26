@@ -9,6 +9,26 @@ export const GameContext = createContext([] as OnlineGame[]);
 export function Layout() {
   const [games, setGames] = useState([
     {
+      id: 0,
+      name: "Minecraft",
+      installPath: "/games/minecraft",
+      executable: "Minecraft.exe",
+      version: "v1.17",
+      size: 512, // in megabytes
+
+      props: {
+        name: "Minecraft",
+        description:
+          "Minecraft is a sandbox game that allows players to build and explore virtual worlds made up of blocks. Use your creativity to survive and thrive.",
+        verticalIcon:
+          "https://images.igdb.com/igdb/image/upload/t_cover_big/co49x5.png",
+        background:
+          "https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_Minecraft.jpg",
+        altBackground:
+          "https://cdn-s-www.leprogres.fr/images/982953C8-5BFF-432B-813A-3EB902286E2A/NW_raw/capture-d-ecran-1446570191.jpg",
+      },
+    },
+    {
       id: 1,
       name: "Fortnite",
       installPath: "/games/fortnite",
@@ -30,26 +50,6 @@ export function Layout() {
     },
     {
       id: 2,
-      name: "Minecraft",
-      installPath: "/games/minecraft",
-      executable: "Minecraft.exe",
-      version: "v1.17",
-      size: 512, // in megabytes
-
-      props: {
-        name: "Minecraft",
-        description:
-          "Minecraft is a sandbox game that allows players to build and explore virtual worlds made up of blocks. Use your creativity to survive and thrive.",
-        verticalIcon:
-          "https://images.igdb.com/igdb/image/upload/t_cover_big/co49x5.png",
-        background:
-          "https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_Minecraft.jpg",
-        altBackground:
-          "https://cdn-s-www.leprogres.fr/images/982953C8-5BFF-432B-813A-3EB902286E2A/NW_raw/capture-d-ecran-1446570191.jpg",
-      },
-    },
-    {
-      id: 3,
       name: "League of Legends",
       installPath: "/games/league-of-legends",
       executable: "LeagueOfLegends.exe",
@@ -69,7 +69,7 @@ export function Layout() {
       },
     },
     {
-      id: 4,
+      id: 3,
       name: "Among Us",
       installPath: "/games/among-us",
       executable: "AmongUs.exe",
@@ -89,7 +89,7 @@ export function Layout() {
       },
     },
     {
-      id: 5,
+      id: 4,
       name: "Valorant",
       installPath: "/games/valorant",
       executable: "Valorant.exe",
