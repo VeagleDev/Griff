@@ -56,7 +56,7 @@ function Home() {
 
         <div className="carousel">        
           {games.map((game: OnlineGame) => (
-            <Link to="/game" state={game.id} className="carousel-cell">
+            <Link to="/game" state={game.id} className="carousel-cell" key={game.id}>
               <div className="img-ctnr">
                 <img src={game.props.background} />
               </div>
