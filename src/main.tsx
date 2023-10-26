@@ -143,11 +143,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   //     }}
   //   >
       <App />
-<<<<<<< HEAD
   //   </ModalsProvider>
   // </MantineProvider>
-=======
-    </ModalsProvider>
-  </MantineProvider>,
->>>>>>> 6a6fe93a640bee62e8df016363525ae2d5004856
 );

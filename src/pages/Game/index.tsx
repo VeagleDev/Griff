@@ -1,4 +1,8 @@
 import "./index.scss";
+import {OnlineGame} from "../../types/game.type";
+import {GameContext} from "../layout";
+import {useContext} from "react";
+import { BackgroundImage } from "@mantine/core";
 
 interface propsTag {
   text: string
@@ -13,15 +17,16 @@ function Tag(props:propsTag) {
 }
 
 function Game() {
+  const games = useContext(GameContext);
+
   return (
     <main>
       <div className="top-page">
-        <div className="bg">
-          <img src="" alt="" />
+        <div className="bg" style={{backgroundImage: `url(${games[1].props.background})`}}>
 
           <div className="gradient-h flex-content">
             <div className="content pad-auto">
-              <h1>Forza Horizon 5</h1>
+              <h1>{games[1].name}</h1>
               <div className="flex tag-ctnr">
                 <Tag text="microsoft" />
                 <Tag text="bac à sable" />
@@ -34,19 +39,19 @@ function Game() {
 
       <div className="content-page flex pad-auto">
         <div className="left-content">
-          <p>Forza Horizon 5 est un jeu de course en monde ouvert développé par Playground Games. Il prend place dans les villes et magnifiques décors du Mexique.</p>
+          <p>{games[1].props.description}</p>
           
           <div className="pannel">
             <h5>à savoir</h5>
             <div className="horizontal-stripe"></div>
-            <p>Cette version contient l'entièreté du jeu ainsi que tous ses DLC. Ce jeu est développé par Playground Games et disponible sur le Microsoft Store à partir de 49€99.</p>
+            <p>La version du jeu est la {games[1].version} et une taille de {games[1].size} MB.</p>
           </div>
         </div> 
 
         <div className="right-content">
           <div className="game-pannel flex-col">
             <div className="img-ctnr">
-              <img src="" alt="" />
+              <img src={games[1].props.verticalIcon} alt="" />
             </div>
 
             <div className="flex tag-ctnr">
