@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import "./index.scss";
 
+
+
 function Navbar() {
   return (
     <div className="fixed">
@@ -110,7 +112,7 @@ function Navbar() {
           </div>
 
           <div className="flex-col card-list">
-            <button className="card ready-to-play">
+            {/* <button className="card ready-to-play">
               <div className="content flex">
                 <div className="img-ctnr">
                   <img src="" alt="" />
@@ -121,7 +123,7 @@ function Navbar() {
                   <h6>Prêt à jouer</h6>
                 </div>
               </div>
-            </button>
+            </button> */}
 
             <button className="card downloading">
               <div className="content flex">
