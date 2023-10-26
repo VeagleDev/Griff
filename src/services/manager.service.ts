@@ -1,7 +1,6 @@
-import { ExtendedDownloadInfo } from "../types/downloads.type";
 import { modals } from "@mantine/modals";
 
-const downloadsInformation: ExtendedDownloadInfo[] = [];
+//const downloadsInformation: ExtendedDownloadInfo[] = [];
 
 export async function downloadGame(id: number) {
   const gameName = "Forza Horizon 4";
