@@ -2,7 +2,7 @@ export interface InstalledGame {
   name: string;
   installPath: string;
   executable: string;
-  id: string;
+  id: number;
   version: string;
   installed: boolean;
   size: number;

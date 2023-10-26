@@ -129,20 +129,16 @@ command
   });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  //il veut jamais la fermer celui la 
-  // <MantineProvider
-  //   withGlobalStyles
-  //   withNormalizeCSS
-  //   theme={{ colorScheme: "dark", ...globalStyle }}
-  // >
-  //   <Notifications />
-  //   <ModalsProvider
-  //     modalProps={{
-  //       style: { left: 0 },
-  //       centered: true,
-  //     }}
-  //   >
+    <MantineProvider
+    >
+      <Notifications />
+      <ModalsProvider
+        modalProps={{
+          style: { left: 0 },
+          centered: true,
+        }}
+      >
       <App />
-  //   </ModalsProvider>
-  // </MantineProvider>
+      </ModalsProvider>
+    </MantineProvider>
 );

@@ -1,10 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import { createContext, useEffect, useState } from "react";
-import { OnlineGame } from "../types/game.type";
+import {InstalledGame, OnlineGame} from "../types/game.type";
 import api from "../services/api.service";
 import toast from "../utils/toast.util";
+import {DownloadInfo} from "../types/downloads.type";
 export const GameContext = createContext([] as OnlineGame[]);
+export const InstalledGameContext = createContext([] as InstalledGame[]);
+export const DownloadInfosContext = createContext([] as DownloadInfo[]);
 
 export function Layout() {
   const [games, setGames] = useState([
@@ -110,6 +113,27 @@ export function Layout() {
     },
   ] as OnlineGame[]);
 
+  const [installedGames, setInstalledGames] = useState([
+    {
+      id: 0,
+      name: "Minecraft",
+      installPath: "/games/minecraft",
+      executable: "Minecraft.exe",
+      version: "v1.17",
+      installed: true,
+      size: 512, // in megabytes
+    },
+    {
+      id: 1,
+      name: "Fortnite",
+      installPath: "/games/fortnite",
+      executable: "Fortnite.exe",
+      version: "v15.0",
+      installed: true,
+      size: 2048, // in megabytes
+    }
+  ] as InstalledGame[]);
+
   useEffect(() => {
     api
       .get("/games")
@@ -124,10 +148,12 @@ export function Layout() {
 
   return (
     <GameContext.Provider value={games}>
-      <div className="auto-app-layout">
-        <Navbar />
-        <Outlet />
-      </div>
+      <InstalledGameContext.Provider value={installedGames}>
+        <div className="auto-app-layout">
+          <Navbar />
+          <Outlet />
+        </div>
+      </InstalledGameContext.Provider>
     </GameContext.Provider>
   );
 }
