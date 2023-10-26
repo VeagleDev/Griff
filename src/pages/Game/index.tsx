@@ -4,14 +4,11 @@ import { GameContext } from "../layout";
 import { useContext } from "react";
 import { useLocation } from 'react-router-dom';
 
-interface propsTag {
-  text: string
-}
 
-function Tag(props:propsTag) {
+function Tag({text}: {text: string}) {
   return (
     <div className="tag flex-center">
-      <h5>{props.text}</h5>
+      <h5>{text}</h5>
     </div>
   );
 }
@@ -19,8 +16,12 @@ function Tag(props:propsTag) {
 function Game() {
   const games = useContext(GameContext);
 
+
   const location = useLocation();
-  const id = location.state;
+  const id = location.state || 0;
+  console.log(id);
+  const game = games[id];
+  console.log(game)
 
   return (
     <main>
@@ -29,7 +30,7 @@ function Game() {
 
           <div className="gradient-h flex-content">
             <div className="content">
-              <h1>{games[id].name}</h1>
+              <h1>{game.name}</h1>
               <div className="flex tag-ctnr">
                 <Tag text="microsoft" />
                 <Tag text="bac à sable" />
@@ -42,19 +43,19 @@ function Game() {
 
       <div className="content-page flex">
         <div className="left-content">
-          <p>{games[id].props.description}</p>
+          <p>{game.props.description}</p>
           
           <div className="pannel">
             <h5>à savoir</h5>
             <div className="horizontal-stripe"></div>
-            <p>La version du jeu est la {games[id].version} et une taille de {games[id].size} MB.</p>
+            <p>La version du jeu est la {game.version} et une taille de {game.size} MB.</p>
           </div>
         </div> 
 
         <div className="right-content">
           <div className="game-pannel flex-col">
             <div className="img-ctnr">
-              <img src={games[id].props.verticalIcon} alt="" />
+              <img src={game.props.verticalIcon} alt="" />
             </div>
 
             <div className="flex tag-ctnr">
