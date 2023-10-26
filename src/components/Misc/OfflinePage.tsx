@@ -36,7 +36,7 @@ const OfflinePage = ({
 
       await axios
         .post(
-          "/user/verify",
+          "/token",
           {},
           {
             baseURL: server,
@@ -45,11 +45,13 @@ const OfflinePage = ({
               "Content-Type": "application/json",
               Authorization: "Bearer " + userToken,
             },
-          }
+          },
         )
         .then((res) => {
           if (res.status === 200 && res.data.ok) {
             reloadApp((current) => current + 1);
+          } else if (res.status === 401) {
+            console.log("Token invalide");
           }
         })
         .catch((err) => {

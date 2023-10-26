@@ -49,7 +49,7 @@ function App() {
 
       await axios
         .post(
-          "/user/verify",
+          "/token",
           {},
           {
             baseURL: serverUrl,
@@ -58,7 +58,7 @@ function App() {
               "Content-Type": "application/json",
               Authorization: "Bearer " + token,
             },
-          }
+          },
         )
         .then((res) => {
           if (res.status === 200 && res.data.ok) {
@@ -143,6 +143,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   //     }}
   //   >
       <App />
+<<<<<<< HEAD
   //   </ModalsProvider>
   // </MantineProvider>
+=======
+    </ModalsProvider>
+  </MantineProvider>,
+>>>>>>> 6a6fe93a640bee62e8df016363525ae2d5004856
 );
