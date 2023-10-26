@@ -1,8 +1,8 @@
 import "./index.scss";
-import {OnlineGame} from "../../types/game.type";
-import {GameContext} from "../layout";
-import {useContext} from "react";
-import { BackgroundImage } from "@mantine/core";
+import { OnlineGame } from "../../types/game.type";
+import { GameContext } from "../layout";
+import { useContext } from "react";
+import { useLocation } from 'react-router-dom';
 
 interface propsTag {
   text: string
@@ -19,14 +19,17 @@ function Tag(props:propsTag) {
 function Game() {
   const games = useContext(GameContext);
 
+  const location = useLocation();
+  const id = location.state;
+
   return (
     <main>
       <div className="top-page">
-        <div className="bg" style={{backgroundImage: `url(${games[1].props.background})`}}>
+        <div className="bg" style={{backgroundImage: `url(${games[id].props.background})`}}>
 
           <div className="gradient-h flex-content">
-            <div className="content pad-auto">
-              <h1>{games[1].name}</h1>
+            <div className="content">
+              <h1>{games[id].name}</h1>
               <div className="flex tag-ctnr">
                 <Tag text="microsoft" />
                 <Tag text="bac à sable" />
@@ -37,21 +40,21 @@ function Game() {
         </div>
       </div>
 
-      <div className="content-page flex pad-auto">
+      <div className="content-page flex">
         <div className="left-content">
-          <p>{games[1].props.description}</p>
+          <p>{games[id].props.description}</p>
           
           <div className="pannel">
             <h5>à savoir</h5>
             <div className="horizontal-stripe"></div>
-            <p>La version du jeu est la {games[1].version} et une taille de {games[1].size} MB.</p>
+            <p>La version du jeu est la {games[id].version} et une taille de {games[id].size} MB.</p>
           </div>
         </div> 
 
         <div className="right-content">
           <div className="game-pannel flex-col">
             <div className="img-ctnr">
-              <img src={games[1].props.verticalIcon} alt="" />
+              <img src={games[id].props.verticalIcon} alt="" />
             </div>
 
             <div className="flex tag-ctnr">
