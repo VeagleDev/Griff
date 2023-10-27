@@ -1,9 +1,8 @@
 import { modals } from "@mantine/modals";
+import {OnlineGame} from "../types/game.type";
 
-//const downloadsInformation: ExtendedDownloadInfo[] = [];
-
-export async function downloadGame(id: number) {
-  const gameName = "Forza Horizon 4";
+export async function downloadGame(game: OnlineGame) {
+  const gameName = game.name;
   if (
     await new Promise<boolean>((resolve) => {
       modals.openConfirmModal({
