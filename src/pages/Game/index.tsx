@@ -3,6 +3,7 @@ import { OnlineGame } from "../../types/game.type";
 import { GameContext } from "../layout";
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
+import {downloadGame} from "../../services/manager.service";
 
 function Tag({ text }: { text: string }) {
   return (
@@ -17,9 +18,7 @@ function Game() {
 
   const location = useLocation();
   const id = location.state || 0;
-  console.log(id);
   const game = games[id];
-  console.log(game);
 
   return (
     <main>
@@ -65,7 +64,9 @@ function Game() {
               <Tag text="microsoft" />
             </div>
 
-            <button className="fill cta">
+            <button className="fill cta" onClick={() => {
+              downloadGame(game);
+            }}>
               <h2>télécharger</h2>
             </button>
 
