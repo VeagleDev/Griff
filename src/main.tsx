@@ -2,11 +2,8 @@ import { MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
-//il me tape sur le systeme celui la
-// import globalStyle from "./styles/mantine.style";
 import { Layout } from "./pages/layout";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
@@ -18,6 +15,7 @@ import OfflinePage from "./components/Misc/OfflinePage";
 import { Login } from "./pages/Login/Login";
 import "./services/manager.service";
 import { Command } from "@tauri-apps/api/shell";
+import {DataConfigSchema} from "./types/config.type";
 
 function App() {
   const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev
@@ -26,53 +24,60 @@ function App() {
   const forcedElementRef = useRef(<></>);
   const isLoading = useRef(false);
 
-  const { get } = useConfig();
+  const { all } = useConfig();
+
   useEffect(() => {
     (async () => {
       if (isLogged === 99) return;
       if (isLoading.current) return;
       isLoading.current = true;
 
-      const serverUrl = await get("serverUrl");
-      const token = await get("token");
-
-      if (!serverUrl) {
+      const parsed = DataConfigSchema.safeParse(await all());
+      if (!parsed.success) {
+        toast.error("Le fichier de configuration est invalide");
+        console.error(parsed.error);
         setIsLogged(1);
-        return;
-      }
+      } else {
+        const { serverUrl, token } = parsed.data;
+        try {
+          const res = await axios
+            .post(
+              "/token",
+              {},
+              {
+                baseURL: serverUrl,
+                timeout: 3000,
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + token,
+                },
+              },
+            );
 
-      if (!token) {
-        toast.error("Le token enregistré est invalide");
-        setIsLogged(1);
-        return;
-      }
-
-      await axios
-        .post(
-          "/token",
-          {},
-          {
-            baseURL: serverUrl,
-            timeout: 3000,
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + token,
-            },
-          },
-        )
-        .then((res) => {
-          if (res.status === 200 && res.data.ok) {
-            setIsLogged(2);
+          if(res.status !== 200) {
+            switch (res.status) {
+              case 401:
+                toast.error("Le token enregistré a été refusé");
+                setIsLogged(1);
+                break;
+              case 403:
+                toast.error("Vous n'avez pas la permission d'accéder à ce serveur");
+                setIsLogged(1);
+                break;
+              default:
+                toast.error("La communication avec le serveur a échoué");
+                setIsLogged(1);
+                break;
+            }
           } else {
-            toast.error("Le token enregistré a été refusé");
-            setIsLogged(1);
+            setIsLogged(2);
           }
           if (forceDisplay) setForceDisplay(false);
-        })
-        .catch((err) => {
-          if (err.code === "ERR_NETWORK" || err.code === "ECONNABORTED") {
+
+        } catch(e: any) {
+          if (e.code === "ERR_NETWORK" || e.code === "ECONNABORTED") {
             console.warn("Pas de connexion aux internets");
-            toast.error("Vous n'êtes pas connecté à internet");
+            toast.error("La connexion avec le serveur a échoué");
             setForceDisplay(true);
             forcedElementRef.current = (
               <OfflinePage
@@ -83,11 +88,13 @@ function App() {
             );
           } else {
             toast.error("La connexion au serveur a échoué");
-            console.error(err);
+            console.error(e);
             setIsLogged(1);
             if (forceDisplay) setForceDisplay(false);
           }
-        });
+        }
+      }
+
       isLoading.current = false;
     })();
   }, [reload]);
@@ -104,6 +111,7 @@ function App() {
         ) : isLogged === 2 ? (
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="/game" element={<Game />} />
           </Route> // --------------------------------------------------
         ) : (
           // Pour le frontend
