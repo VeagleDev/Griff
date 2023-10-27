@@ -15,6 +15,15 @@ const useConfig = () => {
   const configPathPromise = getConfigPath();
 
   return {
+    all: async () => {
+      const configPath = (await configPathPromise) + "config.json";
+      try {
+        const config = await readTextFile(configPath);
+        return JSON.parse(config) || {};
+      } catch(e) {
+        return {};
+      }
+    },
     get: async (key: string, ignoreEmpty?: boolean) => {
       const configPath = (await configPathPromise) + "config.json";
       const config = await readTextFile(configPath)
