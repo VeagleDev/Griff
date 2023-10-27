@@ -153,17 +153,18 @@ export function Layout() {
     }
   ] as DownloadInfo[]);
 
-  useEffect(() => {
-    api
-      .get("/games")
-      .then((res) => {
-        setGames(res.data.games);
-      })
-      .catch((err) => {
-        console.error(err);
-        toast.error("Impossible de récupérer les jeux");
-      });
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get("/games")
+  //     .then((res) => {
+  //       console.log(res.data)
+  //       setGames(res.data.games);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       toast.error("Impossible de récupérer les jeux");
+  //     });
+  // }, []);
 
   return (
     <GameContext.Provider value={games}>
