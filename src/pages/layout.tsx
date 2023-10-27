@@ -134,6 +134,25 @@ export function Layout() {
     },
   ] as InstalledGame[]);
 
+  const [downloadInfos, setDownloadInfos] = useState([
+    {
+      gid: "1",
+      status: "active",
+      progress: 53,
+      downloadSpeed: 1024,
+      totalLength: 1024 * 1024 * 1024,
+      completedLength: 1024 * 1024 * 1024 * 0.53,
+    },
+    {
+      gid: "2",
+      status: "complete",
+      progress: 100,
+      downloadSpeed: 0,
+      totalLength: 1024 * 1024 * 1024,
+      completedLength: 1024 * 1024 * 1024,
+    }
+  ] as DownloadInfo[]);
+
   useEffect(() => {
     api
       .get("/games")
@@ -149,10 +168,12 @@ export function Layout() {
   return (
     <GameContext.Provider value={games}>
       <InstalledGameContext.Provider value={installedGames}>
-        <div className="auto-app-layout">
-          <Navbar />
-          <Outlet />
-        </div>
+        <DownloadInfosContext.Provider value={downloadInfos}>
+          <div className="auto-app-layout">
+            <Navbar />
+            <Outlet />
+          </div>
+        </DownloadInfosContext.Provider>
       </InstalledGameContext.Provider>
     </GameContext.Provider>
   );
