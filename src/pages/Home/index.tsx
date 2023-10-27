@@ -28,7 +28,7 @@ function Home() {
     <main className="home pad-auto">
       <div className="landing-page">
         <div className="flex-col">
-          <h2 className="top-title">#1 top tendance</h2>
+          <h2 className="top-title">recommandation du moment</h2>
           <h1>{game.name}</h1>
           <p>{game.props.description}</p>
           <Link to="/game" state={game.id} className="cta">
