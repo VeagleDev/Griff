@@ -1,10 +1,10 @@
-import { MantineProvider } from "@mantine/core";
-import { ModalsProvider } from "@mantine/modals";
-import { Notifications } from "@mantine/notifications";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import {MantineProvider} from "@mantine/core";
+import {ModalsProvider} from "@mantine/modals";
+import {Notifications} from "@mantine/notifications";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import React, {createContext, useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom/client";
-import { Layout } from "./pages/layout";
+import {Layout} from "./pages/layout";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
 import LoadingWheel from "./components/Misc/LoadingWheel";
@@ -12,10 +12,16 @@ import useConfig from "./hooks/useConfig";
 import axios from "axios";
 import toast from "./utils/toast.util";
 import OfflinePage from "./components/Misc/OfflinePage";
-import { Login } from "./pages/Login/Login";
+import {Login} from "./pages/Login/Login";
 import "./services/manager.service";
-import { Command } from "@tauri-apps/api/shell";
-import {DataConfigSchema} from "./types/config.type";
+import {Command} from "@tauri-apps/api/shell";
+import ConfigType, {DataConfigSchema} from "./types/config.type";
+import {InstalledGame} from "./types/game.type";
+import {DownloadInfo} from "./types/downloads.type";
+
+export const ConfigContext = createContext({} as ConfigType);
+export const InstalledGameContext = createContext([] as InstalledGame[]);
+export const DownloadInfosContext = createContext([] as DownloadInfo[]);
 
 function App() {
   const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev
@@ -23,16 +29,58 @@ function App() {
   const [forceDisplay, setForceDisplay] = useState(false);
   const forcedElementRef = useRef(<></>);
   const isLoading = useRef(false);
+  const [config, setConfig] = useState({} as ConfigType);
+  const [installedGames, setInstalledGames] = useState([
+    {
+      id: 0,
+      name: "Minecraft",
+      installPath: "/games/minecraft",
+      executable: "Minecraft.exe",
+      version: "v1.17",
+      installed: true,
+      size: 512, // in megabytes
+    },
+    {
+      id: 1,
+      name: "Fortnite",
+      installPath: "/games/fortnite",
+      executable: "Fortnite.exe",
+      version: "v15.0",
+      installed: true,
+      size: 2048, // in megabytes
+    },
+  ] as InstalledGame[]);
+
+  const [downloadInfos, setDownloadInfos] = useState([
+    {
+      gid: "1",
+      status: "active",
+      progress: 53,
+      downloadSpeed: 1024,
+      totalLength: 1024 * 1024 * 1024,
+      completedLength: 1024 * 1024 * 1024 * 0.53,
+    },
+    {
+      gid: "2",
+      status: "complete",
+      progress: 100,
+      downloadSpeed: 0,
+      totalLength: 1024 * 1024 * 1024,
+      completedLength: 1024 * 1024 * 1024,
+    }
+  ] as DownloadInfo[]);
 
   const { all } = useConfig();
 
   useEffect(() => {
     (async () => {
+      const parsed = DataConfigSchema.safeParse(await all());
+      if(parsed.success) setConfig(parsed.data as ConfigType);
+
       if (isLogged === 99) return;
       if (isLoading.current) return;
       isLoading.current = true;
 
-      const parsed = DataConfigSchema.safeParse(await all());
       if (!parsed.success) {
         toast.error("Le fichier de configuration est invalide");
         console.error(parsed.error);
@@ -99,30 +147,44 @@ function App() {
     })();
   }, [reload]);
 
+  useEffect(() => {
+    if(!config.installedGames) return;
+    for (const game of config.installedGames) {
+      if (installedGames.find((g) => g.id === game.id)) continue;
+      setInstalledGames((prev) => [...prev, game]);
+    }
+  }, [config])
+
   if (forceDisplay) return forcedElementRef.current;
 
   return (
-    <Router>
-      <Routes>
-        {isLogged === 0 ? ( // Utilisé pour le backend ----------------------
-          <Route index element={<LoadingWheel />} />
-        ) : isLogged === 1 ? (
-          <Route index element={<Login reloadApp={setReload} />} />
-        ) : isLogged === 2 ? (
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/game" element={<Game />} />
-          </Route> // --------------------------------------------------
-        ) : (
-          // Pour le frontend
+    <ConfigContext.Provider value={config}>
+      <InstalledGameContext.Provider value={installedGames}>
+        <DownloadInfosContext.Provider value={downloadInfos}>
+          <Router>
+            <Routes>
+              {isLogged === 0 ? ( // Utilisé pour le backend ----------------------
+                <Route index element={<LoadingWheel />} />
+              ) : isLogged === 1 ? (
+                <Route index element={<Login reloadApp={setReload} />} />
+              ) : isLogged === 2 ? (
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Home />} />
+                  <Route path="/game" element={<Game />} />
+                </Route> // --------------------------------------------------
+              ) : (
+                // Pour le frontend
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Home />} />
+                  <Route path="/game" element={<Game />} />
+                </Route>
 
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/game" element={<Game />} />
-          </Route>
-        )}
-      </Routes>
-    </Router>
+              )}
+            </Routes>
+          </Router>
+        </DownloadInfosContext.Provider>
+      </InstalledGameContext.Provider>
+    </ConfigContext.Provider>
   );
 }
 
@@ -135,6 +197,7 @@ command
   .catch((error) => {
     console.error(error);
   });
+
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <MantineProvider theme={{colorScheme: "dark"}}>
