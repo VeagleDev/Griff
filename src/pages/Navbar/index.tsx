@@ -41,7 +41,7 @@ function Navbar() {
                   />
                 </svg>
 
-                <h6>griff.veagle.fr</h6>
+                <h6>{config.serverName || "Serveur Griff"}</h6>
               </div>
             </div>
           </div>
