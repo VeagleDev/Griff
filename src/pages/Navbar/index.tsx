@@ -11,8 +11,7 @@ function Navbar() {
   const installingGames = useContext(DownloadInfosContext);
   const config = useContext(ConfigContext);
 
-  const id = 56; // L'ID récupéré de ton contexte dont tu veux connaître le nom (à remplacer)
-  const name = games.find((game) => game.id === id) || "Inconnu";
+  const game = games.find((gameElement) => gameElement.id === props.id) || "Inconnu";
 
   return (
     <div className="fixed">
