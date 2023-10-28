@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import "./index.scss";
+import {useContext} from "react";
+import {ConfigContext} from "../../main";
+
 function Navbar() {
+  const config = useContext(ConfigContext);
   return (
     <div className="fixed">
       <div className="top-nav"></div>
@@ -20,7 +24,7 @@ function Navbar() {
             </div>
 
             <div className="flex-col">
-              <h2>TheCrinten</h2>
+              <h2>{config.username || "Utilisateur"}</h2>
               <div className="flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
