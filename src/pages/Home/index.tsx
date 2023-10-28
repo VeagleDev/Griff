@@ -1,17 +1,16 @@
 import Flickity from "flickity";
 import "./index.scss";
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { OnlineGame } from "../../types/game.type";
-import { GameContext } from "../layout";
-import { useContext } from "react";
+import React, {useContext, useEffect, useRef} from "react";
+import {Link} from "react-router-dom";
+import {OnlineGame} from "../../types/game.type";
+import {GameContext} from "../layout";
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
 function Home() {
-  const flickityRef = useRef(null);
+  const flickityRef = useRef(null as any);
   const games = useContext(GameContext);
   const game = games[getRandomInt(games.length)];
 
@@ -68,6 +67,24 @@ function Home() {
       </div>
     </main>
   );
+}
+
+function GameCell({ game }: { game: OnlineGame }) {
+   return (
+     <Link
+     to="/game"
+     state={game.id}
+     className="carousel-cell"
+     key={game.id}
+   >
+    <div className="img-ctnr">
+      <img src={game.props.background} />
+    </div>
+
+    <h5>Multijoueur</h5>
+    <h2>{game.name}</h2>
+   </Link>
+   );
 }
 
 export default Home;
