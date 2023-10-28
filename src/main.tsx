@@ -17,11 +17,11 @@ import "./services/manager.service";
 import {Command} from "@tauri-apps/api/shell";
 import ConfigType, {DataConfigSchema} from "./types/config.type";
 import {InstalledGame} from "./types/game.type";
-import {DownloadInfo} from "./types/downloads.type";
+import {ExtendedDownloadInfo} from "./types/downloads.type";
 
 export const ConfigContext = createContext({} as ConfigType);
 export const InstalledGameContext = createContext([] as InstalledGame[]);
-export const DownloadInfosContext = createContext([] as DownloadInfo[]);
+export const DownloadInfosContext = createContext([] as ExtendedDownloadInfo[]);
 
 function App() {
   const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev
@@ -53,6 +53,7 @@ function App() {
 
   const [downloadInfos, setDownloadInfos] = useState([
     {
+      id: 1,
       gid: "1",
       status: "active",
       progress: 53,
@@ -61,6 +62,7 @@ function App() {
       completedLength: 1024 * 1024 * 1024 * 0.53,
     },
     {
+      id: 2,
       gid: "2",
       status: "complete",
       progress: 100,
@@ -68,7 +70,7 @@ function App() {
       totalLength: 1024 * 1024 * 1024,
       completedLength: 1024 * 1024 * 1024,
     },
-  ] as DownloadInfo[]);
+  ] as ExtendedDownloadInfo[]);
 
   const { all } = useConfig();
 
