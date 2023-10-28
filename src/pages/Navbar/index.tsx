@@ -2,9 +2,18 @@ import {NavLink} from "react-router-dom";
 import "./index.scss";
 import {useContext} from "react";
 import {ConfigContext} from "../../main";
+import {GameContext} from "../layout";
+import {DownloadInfosContext} from "../../main";
+import {DownloadInfo} from "../../types/downloads.type";
 
 function Navbar() {
+  const games = useContext(GameContext);
+  const installingGames = useContext(DownloadInfosContext);
   const config = useContext(ConfigContext);
+
+  const id = 56; // L'ID récupéré de ton contexte dont tu veux connaître le nom (à remplacer)
+  const name = games.find((game) => game.id === id) || "Inconnu";
+
   return (
     <div className="fixed">
       <div className="top-nav"></div>
@@ -140,20 +149,22 @@ function Navbar() {
               </div>
             </button> */}
 
-            <button className="card downloading">
+            {installingGames.map((props: DownloadInfo) => (
+              <button className="card downloading">
               <div className="content flex">
                 <div className="img-ctnr">
-                  <img src="" alt="" />
+                  <img src={games[parseInt(props.gid) - 1].props.verticalIcon} alt="" />
                 </div>
 
                 <div className="flex-col right-content">
-                  <h2>Forza Horizon 5</h2>
+                  <h2>{games[parseInt(props.gid) - 1].name}</h2>
                   <h6>Installation ...</h6>
                 </div>
               </div>
 
               <div className="loading-bar"></div>
             </button>
+            ))}
           </div>
         </div>
       </div>
