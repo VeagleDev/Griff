@@ -17,8 +17,6 @@
     "test:format": "npm run format"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@mantine/carousel": "^6.0.21",
     "@mantine/core": "^6.0.18",
     "@mantine/form": "^6.0.18",
     "@mantine/hooks": "^6.0.18",
@@ -26,11 +24,11 @@
     "@mantine/notifications": "^6.0.18",
     "@tauri-apps/api": "^1.5.1",
     "axios": "^1.5.1",
-    "embla-carousel-react": "8.0.0-rc14",
     "events": "^3.3.0",
-    "flickity": "^3.0.0",
+    "flickity": "^2.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-flickity-component": "^4.0.7",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.17.0",
     "sass": "^1.69.4",
@@ -39,6 +37,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.5",
+    "@types/flickity": "^2.2.10",
     "@types/node": "^20.8.7",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
