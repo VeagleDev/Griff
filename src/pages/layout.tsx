@@ -1,13 +1,11 @@
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Navbar from "./Navbar";
-import { createContext, useEffect, useState } from "react";
-import { InstalledGame, OnlineGame } from "../types/game.type";
+import {createContext, useEffect, useState} from "react";
+import {OnlineGame} from "../types/game.type";
 import api from "../services/api.service";
 import toast from "../utils/toast.util";
-import { DownloadInfo } from "../types/downloads.type";
+
 export const GameContext = createContext([] as OnlineGame[]);
-export const InstalledGameContext = createContext([] as InstalledGame[]);
-export const DownloadInfosContext = createContext([] as DownloadInfo[]);
 
 export function Layout() {
   const [games, setGames] = useState([
@@ -113,69 +111,26 @@ export function Layout() {
     },
   ] as OnlineGame[]);
 
-  const [installedGames, setInstalledGames] = useState([
-    {
-      id: 0,
-      name: "Minecraft",
-      installPath: "/games/minecraft",
-      executable: "Minecraft.exe",
-      version: "v1.17",
-      installed: true,
-      size: 512, // in megabytes
-    },
-    {
-      id: 1,
-      name: "Fortnite",
-      installPath: "/games/fortnite",
-      executable: "Fortnite.exe",
-      version: "v15.0",
-      installed: true,
-      size: 2048, // in megabytes
-    },
-  ] as InstalledGame[]);
 
-  const [downloadInfos, setDownloadInfos] = useState([
-    {
-      gid: "1",
-      status: "active",
-      progress: 53,
-      downloadSpeed: 1024,
-      totalLength: 1024 * 1024 * 1024,
-      completedLength: 1024 * 1024 * 1024 * 0.53,
-    },
-    {
-      gid: "2",
-      status: "complete",
-      progress: 100,
-      downloadSpeed: 0,
-      totalLength: 1024 * 1024 * 1024,
-      completedLength: 1024 * 1024 * 1024,
-    }
-  ] as DownloadInfo[]);
-
-  // useEffect(() => {
-  //   api
-  //     .get("/games")
-  //     .then((res) => {
-  //       console.log(res.data)
-  //       setGames(res.data.games);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       toast.error("Impossible de récupérer les jeux");
-  //     });
-  // }, []);
+  useEffect(() => {
+    api
+      .get("/games")
+      .then((res) => {
+        console.log(res.data)
+        //setGames(res.data.games);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Impossible de récupérer les jeux");
+      });
+  }, []);
 
   return (
     <GameContext.Provider value={games}>
-      <InstalledGameContext.Provider value={installedGames}>
-        <DownloadInfosContext.Provider value={downloadInfos}>
           <div className="auto-app-layout">
             <Navbar />
             <Outlet />
           </div>
-        </DownloadInfosContext.Provider>
-      </InstalledGameContext.Provider>
     </GameContext.Provider>
   );
 }
