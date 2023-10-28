@@ -1,8 +1,7 @@
 import "./index.scss";
-import { OnlineGame } from "../../types/game.type";
-import { GameContext } from "../layout";
-import { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import {GameContext} from "../layout";
+import {useContext} from "react";
+import {useLocation} from "react-router-dom";
 import {downloadGame} from "../../services/manager.service";
 
 function Tag({ text }: { text: string }) {
@@ -64,9 +63,12 @@ function Game() {
               <Tag text="microsoft" />
             </div>
 
-            <button className="fill cta" onClick={() => {
-              downloadGame(game);
-            }}>
+            <button
+              className="fill cta"
+              onClick={() => {
+                downloadGame(game);
+              }}
+            >
               <h2>télécharger</h2>
             </button>
 

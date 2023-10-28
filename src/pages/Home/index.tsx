@@ -9,6 +9,14 @@ function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
+const flickityOptions = {
+  cellAlign: "left",
+  wrapAround: true,
+  prevNextButtons: true,
+  pageDots: false,
+  resize: true,
+};
+
 function Home() {
   const flickityRef = useRef(null as any);
   const games = useContext(GameContext);
@@ -70,21 +78,16 @@ function Home() {
 }
 
 function GameCell({ game }: { game: OnlineGame }) {
-   return (
-     <Link
-     to="/game"
-     state={game.id}
-     className="carousel-cell"
-     key={game.id}
-   >
-    <div className="img-ctnr">
-      <img src={game.props.background} />
-    </div>
+  return (
+    <Link to="/game" state={game.id} className="carousel-cell" key={game.id}>
+      <div className="img-ctnr">
+        <img src={game.props.background} />
+      </div>
 
-    <h5>Multijoueur</h5>
-    <h2>{game.name}</h2>
-   </Link>
-   );
+      <h5>Multijoueur</h5>
+      <h2>{game.name}</h2>
+    </Link>
+  );
 }
 
 export default Home;

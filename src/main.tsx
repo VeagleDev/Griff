@@ -67,7 +67,7 @@ function App() {
       downloadSpeed: 0,
       totalLength: 1024 * 1024 * 1024,
       completedLength: 1024 * 1024 * 1024,
-    }
+    },
   ] as DownloadInfo[]);
 
   const { all } = useConfig();
@@ -75,7 +75,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const parsed = DataConfigSchema.safeParse(await all());
-      if(parsed.success) setConfig(parsed.data as ConfigType);
+      if (parsed.success) setConfig(parsed.data as ConfigType);
 
       if (isLogged === 99) return;
       if (isLoading.current) return;
@@ -88,28 +88,29 @@ function App() {
       } else {
         const { serverUrl, token } = parsed.data;
         try {
-          const res = await axios
-            .post(
-              "/token",
-              {},
-              {
-                baseURL: serverUrl,
-                timeout: 3000,
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + token,
-                },
+          const res = await axios.post(
+            "/token",
+            {},
+            {
+              baseURL: serverUrl,
+              timeout: 3000,
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
               },
-            );
+            },
+          );
 
-          if(res.status !== 200) {
+          if (res.status !== 200) {
             switch (res.status) {
               case 401:
                 toast.error("Le token enregistré a été refusé");
                 setIsLogged(1);
                 break;
               case 403:
-                toast.error("Vous n'avez pas la permission d'accéder à ce serveur");
+                toast.error(
+                  "Vous n'avez pas la permission d'accéder à ce serveur",
+                );
                 setIsLogged(1);
                 break;
               default:
@@ -121,8 +122,7 @@ function App() {
             setIsLogged(2);
           }
           if (forceDisplay) setForceDisplay(false);
-
-        } catch(e: any) {
+        } catch (e: any) {
           if (e.code === "ERR_NETWORK" || e.code === "ECONNABORTED") {
             console.warn("Pas de connexion aux internets");
             toast.error("La connexion avec le serveur a échoué");
@@ -148,12 +148,12 @@ function App() {
   }, [reload]);
 
   useEffect(() => {
-    if(!config.installedGames) return;
+    if (!config.installedGames) return;
     for (const game of config.installedGames) {
       if (installedGames.find((g) => g.id === game.id)) continue;
       setInstalledGames((prev) => [...prev, game]);
     }
-  }, [config])
+  }, [config]);
 
   if (forceDisplay) return forcedElementRef.current;
 
@@ -178,7 +178,6 @@ function App() {
                   <Route index element={<Home />} />
                   <Route path="/game" element={<Game />} />
                 </Route>
-
               )}
             </Routes>
           </Router>
@@ -198,9 +197,8 @@ command
     console.error(error);
   });
 
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <MantineProvider theme={{colorScheme: "dark"}}>
+  <MantineProvider theme={{ colorScheme: "dark" }}>
     <Notifications />
     <ModalsProvider
       modalProps={{

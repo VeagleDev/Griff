@@ -1,4 +1,4 @@
-import { modals } from "@mantine/modals";
+import {modals} from "@mantine/modals";
 import {OnlineGame} from "../types/game.type";
 
 export async function downloadGame(game: OnlineGame) {

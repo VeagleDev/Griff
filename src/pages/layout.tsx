@@ -111,12 +111,11 @@ export function Layout() {
     },
   ] as OnlineGame[]);
 
-
   useEffect(() => {
     api
       .get("/games")
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         //setGames(res.data.games);
       })
       .catch((err) => {
@@ -127,10 +126,10 @@ export function Layout() {
 
   return (
     <GameContext.Provider value={games}>
-          <div className="auto-app-layout">
-            <Navbar />
-            <Outlet />
-          </div>
+      <div className="auto-app-layout">
+        <Navbar />
+        <Outlet />
+      </div>
     </GameContext.Provider>
   );
 }

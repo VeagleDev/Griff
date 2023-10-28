@@ -1,10 +1,5 @@
-import { appDataDir } from "@tauri-apps/api/path";
-import {
-  readTextFile,
-  writeTextFile,
-  exists,
-  createDir,
-} from "@tauri-apps/api/fs";
+import {appDataDir} from "@tauri-apps/api/path";
+import {createDir, exists, readTextFile, writeTextFile,} from "@tauri-apps/api/fs";
 import toast from "../utils/toast.util";
 import ConfigType from "../types/config.type";
 
@@ -20,7 +15,7 @@ const useConfig = () => {
       try {
         const config = await readTextFile(configPath);
         return JSON.parse(config) || {};
-      } catch(e) {
+      } catch (e) {
         return {};
       }
     },

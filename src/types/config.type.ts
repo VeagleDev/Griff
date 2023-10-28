@@ -1,5 +1,5 @@
-import { InstalledGame } from "./game.type";
-import { z } from "zod";
+import {InstalledGame} from "./game.type";
+import {z} from "zod";
 
 export const DataConfigSchema = z.object({
   serverUrl: z.string().min(1).startsWith("http"),
@@ -8,19 +8,19 @@ export const DataConfigSchema = z.object({
   token: z.string().min(1),
   firstName: z.string().min(1),
   email: z.string(),
-  installedGames: z.any()
+  installedGames: z.any(),
 });
 
 interface DataConfig {
- serverUrl: string;
- serverName: string;
+  serverUrl: string;
+  serverName: string;
 
- username: string;
- token: string;
- firstName: string;
+  username: string;
+  token: string;
+  firstName: string;
 
- email: string;
- installedGames: InstalledGame[];
+  email: string;
+  installedGames: InstalledGame[];
 }
 
 export default DataConfig;
