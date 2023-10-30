@@ -18,6 +18,7 @@ import {Command} from "@tauri-apps/api/shell";
 import ConfigType, {DataConfigSchema} from "./types/config.type";
 import {InstalledGame} from "./types/game.type";
 import {ExtendedDownloadInfo} from "./types/downloads.type";
+import Aria2Manager from "./utils/aria2/client";
 
 export const ConfigContext = createContext({} as ConfigType);
 export const InstalledGameContext = createContext([] as InstalledGame[]);
