@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import {EventEmitter} from "events";
 
 import Deferred from "./Deferred.js";
 import promiseEvent from "./promiseEvent.js";
@@ -181,7 +181,7 @@ class JSONRPCClient extends EventEmitter {
 JSONRPCClient.defaultOptions = {
   secure: false,
   host: "localhost",
-  port: 80,
+  port: 6800,
   secret: "",
   path: "/jsonrpc",
 };

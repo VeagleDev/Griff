@@ -18,6 +18,7 @@ import {Command} from "@tauri-apps/api/shell";
 import ConfigType, {DataConfigSchema} from "./types/config.type";
 import {InstalledGame} from "./types/game.type";
 import {ExtendedDownloadInfo} from "./types/downloads.type";
+import Aria2Manager from "./utils/aria2/client";
 
 export const ConfigContext = createContext({} as ConfigType);
 export const InstalledGameContext = createContext([] as InstalledGame[]);
@@ -189,7 +190,7 @@ function App() {
   );
 }
 
-const command = Command.sidecar("ressources/aria2c.exe", ["--enable-rpc=true"]);
+const command = Command.sidecar("ressources/aria2c.exe", ["--enable-rpc=true", "--check-integrity=true", "--continue=true", "--seed-time=0", "--save-session=session.aria2", "--always-resume=true", "--console-log-level=error"]);
 command
   .execute()
   .then((result) => {
@@ -198,6 +199,13 @@ command
   .catch((error) => {
     console.error(error);
   });
+
+const aria2 = new Aria2Manager("ws://localhost:6800/jsonrpc");
+await aria2.connect();
+// await aria2.download("https://releases.ubuntu.com/22.04.3/ubuntu-22.04.3-desktop-amd64.iso", "ubuntu");
+// setInterval(async () => {
+//   console.log(await aria2.getStatusAll());
+// }, 1000);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <MantineProvider theme={{ colorScheme: "dark" }}>
