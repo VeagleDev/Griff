@@ -4,14 +4,12 @@ import {useContext} from "react";
 import {ConfigContext} from "../../main";
 import {GameContext} from "../layout";
 import {DownloadInfosContext} from "../../main";
-import {DownloadInfo} from "../../types/downloads.type";
+import {ExtendedDownloadInfo} from "../../types/downloads.type";
 
 function Navbar() {
   const games = useContext(GameContext);
   const installingGames = useContext(DownloadInfosContext);
   const config = useContext(ConfigContext);
-
-  const game = games.find((gameElement) => gameElement.id === props.id) || "Inconnu";
 
   return (
     <div className="fixed">
@@ -148,22 +146,27 @@ function Navbar() {
               </div>
             </button> */}
 
-            {installingGames.map((props: DownloadInfo) => (
-              <button className="card downloading">
-              <div className="content flex">
-                <div className="img-ctnr">
-                  <img src={games[parseInt(props.gid) - 1].props.verticalIcon} alt="" />
-                </div>
+            {installingGames.map((props: ExtendedDownloadInfo) => {
+              const game = games.find((gameElement) => gameElement.id === props.id); // Tu trouve le nom de l'élément qui a le même identifiant que celui que tu as récupéré depuis le téléchargement
+              const name = game?.name || "Inconnu";
+              const verticalIcon = game?.props.verticalIcon;
+              return(
+                <button className={`card ${props.status}`}>
+                  <div className="content flex">
+                    <div className="img-ctnr">
+                      <img src={verticalIcon} alt="" />
+                    </div>
 
-                <div className="flex-col right-content">
-                  <h2>{games[parseInt(props.gid) - 1].name}</h2>
-                  <h6>Installation ...</h6>
-                </div>
-              </div>
+                    <div className="flex-col right-content">
+                      <h2>{name}</h2>
+                      <h6>Installation...</h6>
+                    </div>
+                  </div>
 
-              <div className="loading-bar"></div>
-            </button>
-            ))}
+                  <div className="loading-bar"></div>
+                </button>
+                )
+            })}
           </div>
         </div>
       </div>

@@ -153,15 +153,15 @@
           }
         }
 
-        &.ready-to-play:hover {
+        &.complete:hover {
           background: $stripe;
         }
 
-        &.ready-to-play:active {
+        &.complete:active {
           background: #ffffff20;
         }
 
-        &.downloading {
+        &.active {
           background: #ffffff05;
 
           .loading-bar {
