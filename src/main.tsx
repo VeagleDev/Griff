@@ -52,7 +52,7 @@ function App() {
     },
   ] as InstalledGame[]);
 
-  const [downloadInfos, setDownloadInfos] = useState([
+  const [downloadInfos] = useState([
     {
       id: 1,
       gid: "1",
@@ -190,7 +190,15 @@ function App() {
   );
 }
 
-const command = Command.sidecar("ressources/aria2c.exe", ["--enable-rpc=true", "--check-integrity=true", "--continue=true", "--seed-time=0", "--save-session=session.aria2", "--always-resume=true", "--console-log-level=error"]);
+const command = Command.sidecar("ressources/aria2c.exe", [
+  "--enable-rpc=true",
+  "--check-integrity=true",
+  "--continue=true",
+  "--seed-time=0",
+  "--save-session=session.aria2",
+  "--always-resume=true",
+  "--console-log-level=error",
+]);
 command
   .execute()
   .then((result) => {
