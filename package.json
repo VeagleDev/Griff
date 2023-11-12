@@ -24,7 +24,6 @@
     "@mantine/notifications": "^6.0.18",
     "@tauri-apps/api": "^1.5.1",
     "axios": "^1.5.1",
-    "events": "^3.3.0",
     "flickity": "^2.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
