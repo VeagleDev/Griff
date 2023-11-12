@@ -6,10 +6,18 @@ import {GameContext} from "../layout";
 import {InstalledGameContext} from "../../main";
 import {InstalledGame} from "../../types/game.type";
 
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Button } from '@mantine/core';
+import { Divider } from '@mantine/core';
+import { TextInput, rem } from '@mantine/core';
+import { Text } from '@mantine/core';
+
 function Navbar() {
   const games = useContext(GameContext);
   const installedGames = useContext(InstalledGameContext);
   const config = useContext(ConfigContext);
+
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <div className="fixed">
@@ -17,7 +25,7 @@ function Navbar() {
       <div className="navbar flex-col">
         <div className="vertical-stripe"></div>
 
-        <button className="profile-section section flex-center">
+        <button onClick={open} className="profile-section section flex-center">
           <div className="content flex">
             <div className="profile-picture img-ctnr">
               <svg
@@ -155,6 +163,34 @@ function Navbar() {
           </div>
         </div>
       </div>
+
+      <Modal opened={opened} onClose={close} title={`Bonjour, ${config.firstName || "Utilisateur"} !`} centered size={"xl"}>
+        <Divider my="sm" />
+        <TextInput
+        label="Prénom"
+        placeholder={config.firstName || "Utilisateur"}
+        />
+
+        <TextInput
+        label="Pseudo"
+        placeholder={config.email || "Utilisateur"}
+        style={{marginTop:"10px"}}
+        />
+
+        <Button variant="filled" style={{marginTop:"15px"}}>Enregistrer les modifications</Button>
+
+        <Divider my="sm" />
+
+        <Text size="md">{config.serverUrl || "Serveur Griff"}</Text>
+
+        <Divider my="sm" />
+
+        <Button variant="filled">Déconnexion</Button>
+
+        <Divider my="sm" />
+
+        <Text c="dimmed" size="xs">version 1.02</Text>
+      </Modal>
     </div>
   );
 }
