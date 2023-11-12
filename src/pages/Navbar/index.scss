@@ -153,33 +153,12 @@
           }
         }
 
-        &.complete:hover {
+        &:hover {
           background: $stripe;
         }
 
-        &.complete:active {
+        &:active {
           background: #ffffff20;
-        }
-
-        &.active {
-          background: #ffffff05;
-
-          .loading-bar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 50%;
-            background: #ffffff10;
-          }
-
-          &:hover {
-            background: #ffffff10;
-          }
-
-          &:active {
-            background: #ffffff15;
-          }
         }
       }
     }

@@ -57,7 +57,7 @@ function App() {
       id: 1,
       gid: "1",
       status: "active",
-      progress: 53,
+      progress: 40,
       downloadSpeed: 1024,
       totalLength: 1024 * 1024 * 1024,
       completedLength: 1024 * 1024 * 1024 * 0.53,

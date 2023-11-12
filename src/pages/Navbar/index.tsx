@@ -3,12 +3,12 @@ import "./index.scss";
 import {useContext} from "react";
 import {ConfigContext} from "../../main";
 import {GameContext} from "../layout";
-import {DownloadInfosContext} from "../../main";
-import {ExtendedDownloadInfo} from "../../types/downloads.type";
+import {InstalledGameContext} from "../../main";
+import {InstalledGame} from "../../types/game.type";
 
 function Navbar() {
   const games = useContext(GameContext);
-  const installingGames = useContext(DownloadInfosContext);
+  const installedGames = useContext(InstalledGameContext);
   const config = useContext(ConfigContext);
 
   return (
@@ -133,37 +133,22 @@ function Navbar() {
           </div>
 
           <div className="flex-col card-list">
-            {/* <button className="card ready-to-play">
-              <div className="content flex">
-                <div className="img-ctnr">
-                  <img src="" alt="" />
-                </div>
-
-                <div className="flex-col right-content">
-                  <h2>Forza Horizon 5</h2>
-                  <h6>Prêt à jouer</h6>
-                </div>
-              </div>
-            </button> */}
-
-            {installingGames.map((props: ExtendedDownloadInfo) => {
+            {installedGames.map((props: InstalledGame) => {
               const game = games.find((gameElement) => gameElement.id === props.id); // Tu trouve le nom de l'élément qui a le même identifiant que celui que tu as récupéré depuis le téléchargement
               const name = game?.name || "Inconnu";
               const verticalIcon = game?.props.verticalIcon;
               return(
-                <button className={`card ${props.status}`}>
+                <button className="card complete">
                   <div className="content flex">
                     <div className="img-ctnr">
-                      <img src={verticalIcon} alt="" />
+                      <img src={verticalIcon} />
                     </div>
 
                     <div className="flex-col right-content">
                       <h2>{name}</h2>
-                      <h6>Installation...</h6>
+                      <h6>Prêt à jouer</h6>
                     </div>
                   </div>
-
-                  <div className="loading-bar"></div>
                 </button>
                 )
             })}
