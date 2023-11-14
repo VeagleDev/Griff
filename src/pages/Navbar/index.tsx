@@ -1,16 +1,12 @@
 import {NavLink} from "react-router-dom";
 import "./index.scss";
 import {useContext} from "react";
-import {ConfigContext} from "../../main";
+import {ConfigContext, InstalledGameContext} from "../../main";
 import {GameContext} from "../layout";
-import {InstalledGameContext} from "../../main";
 import {InstalledGame} from "../../types/game.type";
 
-import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button } from '@mantine/core';
-import { Divider } from '@mantine/core';
-import { TextInput, rem } from '@mantine/core';
-import { Text } from '@mantine/core';
+import {useDisclosure} from '@mantine/hooks';
+import {Account} from "../Account";
 
 function Navbar() {
   const games = useContext(GameContext);
@@ -164,33 +160,7 @@ function Navbar() {
         </div>
       </div>
 
-      <Modal opened={opened} onClose={close} title={`Bonjour, ${config.firstName || "Utilisateur"} !`} centered size={"xl"}>
-        <Divider my="sm" />
-        <TextInput
-        label="Prénom"
-        placeholder={config.firstName || "Utilisateur"}
-        />
-
-        <TextInput
-        label="Pseudo"
-        placeholder={config.email || "Utilisateur"}
-        style={{marginTop:"10px"}}
-        />
-
-        <Button variant="filled" style={{marginTop:"15px"}}>Enregistrer les modifications</Button>
-
-        <Divider my="sm" />
-
-        <Text size="md">{config.serverUrl || "Serveur Griff"}</Text>
-
-        <Divider my="sm" />
-
-        <Button variant="filled">Déconnexion</Button>
-
-        <Divider my="sm" />
-
-        <Text c="dimmed" size="xs">version 1.02</Text>
-      </Modal>
+      <Account opened={opened} close={close} config={config} />
     </div>
   );
 }
