@@ -1,4 +1,4 @@
-import {Carousel} from '@mantine/carousel';
+import {Carousel} from "@mantine/carousel";
 import "./index.scss";
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
@@ -37,7 +37,15 @@ function Home() {
       <div className="flex-col carousel-ctnr">
         <h2>Recommandés</h2>
 
-        <Carousel slideSize="360px" slideGap="md" align="start" withControls={false} className="carousel" loop style={{width: "100%"}}>
+        <Carousel
+          slideSize="360px"
+          slideGap="md"
+          align="start"
+          withControls={false}
+          className="carousel"
+          loop
+          style={{ width: "100%" }}
+        >
           {games.map((gameCell: OnlineGame) => (
             <Carousel.Slide className="carousel-cell">
               <Link
@@ -54,7 +62,6 @@ function Home() {
                 <h2>{gameCell.name}</h2>
               </Link>
             </Carousel.Slide>
-
           ))}
         </Carousel>
       </div>
