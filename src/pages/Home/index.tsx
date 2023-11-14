@@ -4,7 +4,7 @@ import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {OnlineGame} from "../../types/game.type";
 import {GameContext} from "../layout";
-import '@mantine/carousel/styles.css';
+import "@mantine/carousel/styles.css";
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
