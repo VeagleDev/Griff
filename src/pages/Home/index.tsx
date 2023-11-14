@@ -1,6 +1,6 @@
 import Flickity from "flickity";
 import "./index.scss";
-import React, {useContext, useEffect, useRef} from "react";
+import React, {useContext, useRef} from "react";
 import {Link} from "react-router-dom";
 import {OnlineGame} from "../../types/game.type";
 import {GameContext} from "../layout";
@@ -32,10 +32,6 @@ function Home() {
     prevNextButtons: false,
     pageDots: false,
   });
-
-
-
-
 
   return (
     <main className="home pad-auto">

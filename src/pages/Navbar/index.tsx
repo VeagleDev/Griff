@@ -5,7 +5,7 @@ import {ConfigContext, InstalledGameContext} from "../../main";
 import {GameContext} from "../layout";
 import {InstalledGame} from "../../types/game.type";
 
-import {useDisclosure} from '@mantine/hooks';
+import {useDisclosure} from "@mantine/hooks";
 import {Account} from "../Account";
 
 function Navbar() {
@@ -138,10 +138,12 @@ function Navbar() {
 
           <div className="flex-col card-list">
             {installedGames.map((props: InstalledGame) => {
-              const game = games.find((gameElement) => gameElement.id === props.id); // Tu trouve le nom de l'élément qui a le même identifiant que celui que tu as récupéré depuis le téléchargement
+              const game = games.find(
+                (gameElement) => gameElement.id === props.id,
+              ); // Tu trouve le nom de l'élément qui a le même identifiant que celui que tu as récupéré depuis le téléchargement
               const name = game?.name || "Inconnu";
               const verticalIcon = game?.props.verticalIcon;
-              return(
+              return (
                 <button className="card complete">
                   <div className="content flex">
                     <div className="img-ctnr">
@@ -154,7 +156,7 @@ function Navbar() {
                     </div>
                   </div>
                 </button>
-                )
+              );
             })}
           </div>
         </div>

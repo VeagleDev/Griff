@@ -8,7 +8,7 @@ import toast from "../utils/toast.util";
 export const GameContext = createContext([] as OnlineGame[]);
 
 export function Layout() {
-  const [games] = useState([
+  const [games, setGames] = useState([
     {
       id: 0,
       name: "Minecraft",
