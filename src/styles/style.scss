@@ -12,6 +12,7 @@ $navbar-w: 280px;
   font-family: "Manrope";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: initial;
 }
 
 body {
@@ -157,6 +158,8 @@ main {
 .pad-auto {
   padding-left: 60px;
   width: calc(100% - $navbar-w - 60px);
+  background: rgb(18, 18, 26);
+  box-sizing: initial;
 }
 
 .full-size-layer {

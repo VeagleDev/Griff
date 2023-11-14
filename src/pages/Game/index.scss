@@ -59,6 +59,8 @@ $game-pannel-ctnr-w: 470px;
 .content-page {
   padding-left: 60px;
   width: calc(100% - 60px);
+  background: rgb(18, 18, 26);
+  box-sizing: initial;
 
   .left-content {
     width: calc(100% - $game-pannel-ctnr-w);
