@@ -1,10 +1,10 @@
-import { Button, Flex, Stack, TextInput, Title } from "@mantine/core";
-import { createFormContext } from "@mantine/form";
-import { LoginFormValues } from "../../types/login.type";
-import { getLoginFormSubmit } from "./submit";
+import {Button, Flex, Stack, TextInput, Title} from "@mantine/core";
+import {createFormContext} from "@mantine/form";
+import {LoginFormValues} from "../../types/login.type";
+import {getLoginFormSubmit} from "./submit";
 
-import { Dispatch, SetStateAction } from "react";
-import { TbPassword, TbServer, TbUserCircle } from "react-icons/tb";
+import {Dispatch, SetStateAction} from "react";
+import {TbPassword, TbServer, TbUserCircle} from "react-icons/tb";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<LoginFormValues>();
@@ -12,7 +12,7 @@ const [FormProvider, useFormContext, useForm] =
 function FormInputs({ submit }: { submit: Function }) {
   const formContext = useFormContext();
   return (
-    <Flex justify="space-between" direction="column" sx={{ height: "100%" }}>
+    <Flex justify="space-between" direction="column" style={{ height: "100%" }}>
       <Title>Connectez-vous</Title>
       <Stack spacing="md">
         <TextInput
@@ -33,7 +33,7 @@ function FormInputs({ submit }: { submit: Function }) {
       </Stack>
 
       <Button
-        sx={{ bottom: 0 }}
+        style={{ bottom: 0 }}
         onClick={() => {
           if (!formContext.validate().hasErrors) submit();
         }}

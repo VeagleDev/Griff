@@ -20,6 +20,10 @@ import {InstalledGame} from "./types/game.type";
 import {ExtendedDownloadInfo} from "./types/downloads.type";
 import Aria2Manager from "./utils/aria2/client";
 
+
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
+
 export const ConfigContext = createContext({} as ConfigType);
 export const InstalledGameContext = createContext([] as InstalledGame[]);
 export const DownloadInfosContext = createContext([] as ExtendedDownloadInfo[]);
@@ -216,7 +220,7 @@ await aria2.connect();
 // }, 1000);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <MantineProvider theme={{ colorScheme: "dark" }}>
+  <MantineProvider defaultColorScheme="dark">
     <Notifications />
     <ModalsProvider
       modalProps={{

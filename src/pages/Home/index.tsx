@@ -4,6 +4,7 @@ import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {OnlineGame} from "../../types/game.type";
 import {GameContext} from "../layout";
+import '@mantine/carousel/styles.css';
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -39,12 +40,11 @@ function Home() {
 
         <Carousel
           slideSize="360px"
-          slideGap="md"
           align="start"
+          slideGap="lg"
+          loop
           withControls={false}
           className="carousel"
-          loop
-          style={{ width: "100%" }}
         >
           {games.map((gameCell: OnlineGame) => (
             <Carousel.Slide className="carousel-cell">
