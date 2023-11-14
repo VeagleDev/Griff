@@ -22,14 +22,20 @@ function Home() {
   const games = useContext(GameContext);
   const game = games[getRandomInt(games.length)];
 
-  useEffect(() => {
-    flickityRef.current = new Flickity(".carousel", {
-      cellAlign: "left",
-      wrapAround: true,
-      prevNextButtons: false,
-      pageDots: false,
-    });
-  }, []);
+  const carousel = useRef(null as any);
+
+  flickityRef.current = new Flickity(".carousel", {
+    lazyLoad: true,
+    autoPlay: true,
+    cellAlign: "left",
+    wrapAround: true,
+    prevNextButtons: false,
+    pageDots: false,
+  });
+
+
+
+
 
   return (
     <main className="home pad-auto">
@@ -55,7 +61,7 @@ function Home() {
       <div className="flex-col carousel-ctnr">
         <h2>Recommandés</h2>
 
-        <div className="carousel">
+        <div className="carousel" ref={carousel}>
           {games.map((gameCell: OnlineGame) => (
             <Link
               to="/game"
