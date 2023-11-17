@@ -9,7 +9,6 @@ const getConfigPath = async () => {
 const useConfig = () => {
   const configPathPromise = getConfigPath();
 
-
   const handleError = (message: string, ignoreEmpty?: boolean) => {
     if (!ignoreEmpty) toast.error(message);
     return undefined;
@@ -31,7 +30,11 @@ const useConfig = () => {
     get: async (key: string, ignoreEmpty?: boolean) => {
       const config = await readConfigFile();
 
-      if (!config) return handleError("Fichier de configuration introuvable.", ignoreEmpty);
+      if (!config)
+        return handleError(
+          "Fichier de configuration introuvable.",
+          ignoreEmpty,
+        );
 
       if (key in config) return config[key];
       else return handleError(`Clé de configuration "${key}" introuvable.`);
@@ -40,7 +43,9 @@ const useConfig = () => {
     set: async (key: string, value: string, fullConfig?: ConfigType) => {
       const configDir = await configPathPromise;
       await createDir(configDir, { recursive: true }).catch(() => {
-        return handleError("L'écriture du dossier de configuration est impossible.");
+        return handleError(
+          "L'écriture du dossier de configuration est impossible.",
+        );
       });
 
       try {
@@ -67,7 +72,6 @@ const useConfig = () => {
 const UseConfig = () => {
   const configPathPromise = getConfigPath();
 
-
   const handleError = (message: string, ignoreEmpty?: boolean) => {
     if (!ignoreEmpty) toast.error(message);
     return undefined;
@@ -89,7 +93,11 @@ const UseConfig = () => {
     get: async (key: string, ignoreEmpty?: boolean) => {
       const config = await readConfigFile();
 
-      if (!config) return handleError("Fichier de configuration introuvable.", ignoreEmpty);
+      if (!config)
+        return handleError(
+          "Fichier de configuration introuvable.",
+          ignoreEmpty,
+        );
 
       if (key in config) return config[key];
       else return handleError(`Clé de configuration "${key}" introuvable.`);
@@ -98,7 +106,9 @@ const UseConfig = () => {
     set: async (key: string, value: string, fullConfig?: ConfigType) => {
       const configDir = await configPathPromise;
       await createDir(configDir, { recursive: true }).catch(() => {
-        return handleError("L'écriture du dossier de configuration est impossible.");
+        return handleError(
+          "L'écriture du dossier de configuration est impossible.",
+        );
       });
 
       try {
@@ -123,4 +133,4 @@ const UseConfig = () => {
 };
 
 export default useConfig;
-export {UseConfig};
+export { UseConfig };

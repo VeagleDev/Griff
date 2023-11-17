@@ -147,7 +147,7 @@ function Navbar() {
                 <button className="card complete" key={props.id}>
                   <div className="content flex">
                     <div className="img-ctnr">
-                      <img src={verticalIcon} alt="Jeu vertical"/>
+                      <img src={verticalIcon} alt="Jeu vertical" />
                     </div>
 
                     <div className="flex-col right-content">

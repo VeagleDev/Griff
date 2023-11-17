@@ -24,7 +24,6 @@ export async function downloadGame(game: OnlineGame) {
       });
     }).catch(() => false)
   ) {
-
     console.log("Téléchargement de " + gameName + " lancé");
 
     installedGames.push({
@@ -38,7 +37,6 @@ export async function downloadGame(game: OnlineGame) {
     });
     await set("installedGames", installedGames);
     modals.closeAll();
-
   } else {
     console.log("L'utilisateur refuse de télécharger " + gameName);
     modals.closeAll();

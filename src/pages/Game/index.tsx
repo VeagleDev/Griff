@@ -3,6 +3,7 @@ import {GameContext} from "../layout";
 import {useContext} from "react";
 import {useLocation} from "react-router-dom";
 import {downloadGame} from "../../services/manager.service";
+import {InstalledGame} from "../../types/game.type";
 
 function Tag({ text }: { text: string }) {
   return (
@@ -66,10 +67,10 @@ function Game() {
             <button
               className="fill cta"
               onClick={() => {
-                downloadGame(game);
+                downloadGame(game).then((games: InstalledGame[]) => {});
               }}
             >
-              <h2>télécharger</h2>
+              <h2>Télécharger</h2>
             </button>
 
             <button className="border cta">
