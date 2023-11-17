@@ -44,10 +44,9 @@ function Home() {
           withControls={false}
           className="carousel"
           loop
-          style={{ width: "100%" }}
         >
           {games.map((gameCell: OnlineGame) => (
-            <Carousel.Slide className="carousel-cell">
+            <Carousel.Slide className="carousel-cell" key={gameCell.id}>
               <Link
                 to="/game"
                 state={gameCell.id}

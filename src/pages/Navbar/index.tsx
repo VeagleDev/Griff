@@ -144,10 +144,10 @@ function Navbar() {
               const name = game?.name || "Inconnu";
               const verticalIcon = game?.props.verticalIcon;
               return (
-                <button className="card complete">
+                <button className="card complete" key={props.id}>
                   <div className="content flex">
                     <div className="img-ctnr">
-                      <img src={verticalIcon} alt="Image verticale"/>
+                      <img src={verticalIcon} alt="Jeu vertical"/>
                     </div>
 
                     <div className="flex-col right-content">
