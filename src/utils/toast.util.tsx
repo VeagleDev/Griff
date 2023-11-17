@@ -1,8 +1,8 @@
-import { NotificationProps, showNotification } from "@mantine/notifications";
-import { TbCheck, TbX } from "react-icons/tb";
+import {notifications, NotificationsProps} from "@mantine/notifications";
+import {TbCheck, TbX} from "react-icons/tb";
 
-const error = (message: string, config?: Omit<NotificationProps, "message">) =>
-  showNotification({
+const error = (message: string, config?: Omit<NotificationsProps, "message">) =>
+  notifications.show({
     icon: <TbX />,
     color: "red",
     radius: "md",
@@ -12,7 +12,9 @@ const error = (message: string, config?: Omit<NotificationProps, "message">) =>
     autoClose: true,
 
     ...config,
-  });
+  })
+
+  })
 
 const success = (
   message: string,
