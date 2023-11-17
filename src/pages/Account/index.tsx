@@ -109,16 +109,16 @@ function Account({
 
       <Divider my="sm" />
 
-      <Flex justify="space-between" sx={{ width: "95%", margin: "0 auto" }}>
+      <Flex justify="space-between" style={{ width: "95%", margin: "0 auto" }}>
         <Text
           c="dimmed"
           size="xs"
-          sx={{ display: "flex", alignItems: "center" }}
+          style={{ display: "flex", alignItems: "center" }}
         >
           version 1.02
         </Text>
 
-        <Text size="md" display="flex" sx={{ alignItems: "center" }}>
+        <Text size="md" display="flex" style={{ alignItems: "center" }}>
           <TbServer style={{ marginRight: "10px" }} />
           {config.serverUrl || "Serveur Griff"}
         </Text>
