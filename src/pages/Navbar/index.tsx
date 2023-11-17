@@ -147,7 +147,7 @@ function Navbar() {
                 <button className="card complete">
                   <div className="content flex">
                     <div className="img-ctnr">
-                      <img src={verticalIcon} />
+                      <img src={verticalIcon} alt="Image verticale"/>
                     </div>
 
                     <div className="flex-col right-content">
