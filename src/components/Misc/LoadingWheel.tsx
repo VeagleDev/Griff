@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Loader, Text } from "@mantine/core";
+import React, {useEffect} from "react";
+import {Loader, Text} from "@mantine/core";
 
 const LoadingWheel = () => {
   const [dotsNumber, setDotsNumber] = React.useState(0);
@@ -8,7 +8,6 @@ const LoadingWheel = () => {
       setDotsNumber((dotsNumber) => (dotsNumber === 3 ? 0 : dotsNumber + 1));
     }, 500);
 
-    // Nettoyer le setInterval lors du démontage du composant
     return () => clearInterval(interval);
   }, []);
 
