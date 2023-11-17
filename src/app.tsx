@@ -4,7 +4,7 @@ import {InstalledGame} from "./types/game.type";
 import {ExtendedDownloadInfo} from "./types/downloads.type";
 import useConfig from "./hooks/useConfig";
 import toast from "./utils/toast.util";
-import axios from "axios/index";
+import axios from "axios";
 import OfflinePage from "./components/Misc/OfflinePage";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import LoadingWheel from "./components/Misc/LoadingWheel";
