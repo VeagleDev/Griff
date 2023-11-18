@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {NavLink} from "react-router-dom";
 import "./index.scss";
 import {useContext} from "react";
@@ -6,18 +7,24 @@ import {GameContext} from "../layout";
 import {InstalledGameContext} from "../../main";
 import {InstalledGame} from "../../types/game.type";
 
-import { useDisclosure } from '@mantine/hooks';
+import {DownloadInfosContext} from "../../main";
+import {ExtendedDownloadInfo} from "../../types/downloads.type";
+
 import { Modal, Button } from '@mantine/core';
 import { Divider } from '@mantine/core';
 import { TextInput, rem } from '@mantine/core';
 import { Text } from '@mantine/core';
+import { Grid } from '@mantine/core';
 
 function Navbar() {
   const games = useContext(GameContext);
   const installedGames = useContext(InstalledGameContext);
   const config = useContext(ConfigContext);
 
-  const [opened, { open, close }] = useDisclosure(false);
+  const downloadingGames = useContext(DownloadInfosContext);
+
+  const [openUserModal, setOpenUserModal] = useState(false);
+  const [openDownloadsModal, setOpenDownloadsModal] = useState(false);
 
   return (
     <div className="fixed">
@@ -25,7 +32,7 @@ function Navbar() {
       <div className="navbar flex-col">
         <div className="vertical-stripe"></div>
 
-        <button onClick={open} className="profile-section section flex-center">
+        <button onClick={() => setOpenUserModal(true)} className="profile-section section flex-center">
           <div className="content flex">
             <div className="profile-picture img-ctnr">
               <svg
@@ -114,7 +121,7 @@ function Navbar() {
             <h2>Bibliothèque</h2>
           </NavLink>
 
-          <NavLink to="/" className="link flex">
+          <button onClick={() => setOpenDownloadsModal(true)} className="link flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -131,7 +138,7 @@ function Navbar() {
             </svg>
 
             <h2>Téléchargements</h2>
-          </NavLink>
+          </button>
         </nav>
 
         <div className="game-center">
@@ -164,7 +171,7 @@ function Navbar() {
         </div>
       </div>
 
-      <Modal opened={opened} onClose={close} title={`Bonjour, ${config.firstName || "Utilisateur"} !`} centered size={"xl"}>
+      <Modal opened={openUserModal} onClose={() => setOpenUserModal(false)} title={`Bonjour, ${config.firstName || "Utilisateur"} !`} centered size={"xl"}>
         <Divider my="sm" />
         <TextInput
         label="Prénom"
@@ -190,6 +197,30 @@ function Navbar() {
         <Divider my="sm" />
 
         <Text c="dimmed" size="xs">version 1.02</Text>
+      </Modal>
+
+      <Modal 
+      opened={openDownloadsModal} 
+      onClose={() => setOpenDownloadsModal(false)} 
+      title="Centre de téléchargement" 
+      centered 
+      size={"70%"}
+      overlayProps={{
+        blur: 3,
+      }}
+      >
+        <Grid>
+          {downloadingGames.map((props: ExtendedDownloadInfo) => {
+            const game = games.find((gameElement) => gameElement.id === props.id);
+            const name = game?.name;
+            const verticalIcon = game?.props.verticalIcon;
+            return(
+              <Grid.Col>
+                <h2>{name}</h2>
+              </Grid.Col>
+            );
+          })}
+        </Grid>
       </Modal>
     </div>
   );
