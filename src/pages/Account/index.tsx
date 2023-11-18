@@ -54,7 +54,7 @@ async function changeInformations(event: FormEvent<HTMLFormElement>) {
   }
 }
 
-function Account({
+function AccountModal({
   opened,
   close,
   config,
@@ -131,4 +131,4 @@ function Account({
   );
 }
 
-export { Account };
+export { AccountModal };
