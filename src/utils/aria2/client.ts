@@ -15,16 +15,22 @@ const aria2ResponseSchema = z.object({
       gid: z.string(),
       numPieces: z.coerce.number(),
       pieceLength: z.coerce.number(),
-      status: z.enum(["active", "waiting", "paused", "error", "complete", "removed"]),
+      status: z.enum([
+        "active",
+        "waiting",
+        "paused",
+        "error",
+        "complete",
+        "removed",
+      ]),
       totalLength: z.coerce.number(),
       uploadLength: z.coerce.number(),
       uploadSpeed: z.coerce.number(),
-    })
+    }),
   ),
 });
 
 type Result = z.infer<typeof aria2ResponseSchema>["result"][0];
-
 
 class Aria2Manager {
   private websocket: WebSocket;
@@ -33,41 +39,43 @@ class Aria2Manager {
     this.websocket = new WebSocket(url);
     this.connecter = new Promise((resolve, reject) => {
       this.websocket.onopen = (info) => {
-        console.log(info)
+        console.log(info);
         console.log("connected");
-        resolve(true)
-      }
+        resolve(true);
+      };
       this.websocket.onerror = (error) => {
         console.error(error);
-        reject(error)
-      }
-    })
+        reject(error);
+      };
+    });
   }
 
   connect() {
-    return this.connecter
+    return this.connecter;
   }
 
   async download(uri: string, directory: string): Promise<string | undefined> {
     try {
-      const path = await documentDir() + `\\${directory}`;
-      this.websocket.send(JSON.stringify({
-        jsonrpc: "2.0",
-        method: "aria2.addUri",
-        id: "qwer",
-        params: [[uri], {dir: path}]
-      }))
+      const path = (await documentDir()) + `\\${directory}`;
+      this.websocket.send(
+        JSON.stringify({
+          jsonrpc: "2.0",
+          method: "aria2.addUri",
+          id: "qwer",
+          params: [[uri], { dir: path }],
+        }),
+      );
 
-      const data = await new Promise((resolve, reject) => {
+      const data = (await new Promise((resolve, reject) => {
         this.websocket.onmessage = (message) => {
           if (!message.data) return;
-          resolve(message.data)
-        }
+          resolve(message.data);
+        };
         this.websocket.onerror = (error) => {
           console.error(error);
-          reject(error)
-        }
-      }) as string;
+          reject(error);
+        };
+      })) as string;
       console.log(`GID: ${data}`);
       return data;
     } catch (error) {
@@ -78,31 +86,31 @@ class Aria2Manager {
 
   async getStatusAll(): Promise<Result[]> {
     try {
-      this.websocket.send(JSON.stringify({
-        jsonrpc: "2.0",
-        method: "aria2.tellActive",
-        id: "qwer",
-        params: []
-      }))
-      const data = await new Promise((resolve, reject) => {
+      this.websocket.send(
+        JSON.stringify({
+          jsonrpc: "2.0",
+          method: "aria2.tellActive",
+          id: "qwer",
+          params: [],
+        }),
+      );
+      const data = (await new Promise((resolve, reject) => {
         this.websocket.onmessage = (message) => {
-          if(!message.data) return;
-          resolve(message.data)
-        }
+          if (!message.data) return;
+          resolve(message.data);
+        };
         this.websocket.onerror = (error) => {
           console.error(error);
-          reject(error)
-        }
-      }) as string
-      const result = aria2ResponseSchema.parse(JSON.parse(data))
-      return result.result
+          reject(error);
+        };
+      })) as string;
+      const result = aria2ResponseSchema.parse(JSON.parse(data));
+      return result.result;
     } catch (error) {
       console.error(error);
-      return []
+      return [];
     }
   }
-
-
 
   /*private aria2Client: Aria2;
   constructor() {

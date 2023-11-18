@@ -1,11 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  Dispatch,
-  SetStateAction,
-} from "react";
-import { Loader, Text } from "@mantine/core";
+import React, {Dispatch, SetStateAction, useEffect, useRef, useState,} from "react";
+import {Loader, Text} from "@mantine/core";
 import axios from "axios";
 
 const OfflinePage = ({
@@ -84,7 +78,7 @@ const OfflinePage = ({
     >
       <Text size="xl">Actuellement hors connexion...</Text>
 
-      <Loader size="xl" sx={{ margin: "40px 0" }} />
+      <Loader size="xl" style={{ margin: "40px 0" }} />
 
       <Text size="xl">
         {isProcessing

@@ -2,19 +2,15 @@ import { useState } from 'react';
 import {NavLink} from "react-router-dom";
 import "./index.scss";
 import {useContext} from "react";
-import {ConfigContext} from "../../main";
+import {ConfigContext, InstalledGameContext} from "../../main";
 import {GameContext} from "../layout";
-import {InstalledGameContext} from "../../main";
 import {InstalledGame} from "../../types/game.type";
 
-import {DownloadInfosContext} from "../../main";
-import {ExtendedDownloadInfo} from "../../types/downloads.type";
-
+import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
 import { Divider } from '@mantine/core';
 import { TextInput, rem } from '@mantine/core';
 import { Text } from '@mantine/core';
-import { Grid } from '@mantine/core';
 
 function Navbar() {
   const games = useContext(GameContext);
@@ -149,14 +145,16 @@ function Navbar() {
 
           <div className="flex-col card-list">
             {installedGames.map((props: InstalledGame) => {
-              const game = games.find((gameElement) => gameElement.id === props.id); // Tu trouve le nom de l'élément qui a le même identifiant que celui que tu as récupéré depuis le téléchargement
+              const game = games.find(
+                (gameElement) => gameElement.id === props.id,
+              ); // Tu trouve le nom de l'élément qui a le même identifiant que celui que tu as récupéré depuis le téléchargement
               const name = game?.name || "Inconnu";
               const verticalIcon = game?.props.verticalIcon;
-              return(
-                <button className="card complete">
+              return (
+                <button className="card complete" key={props.id}>
                   <div className="content flex">
                     <div className="img-ctnr">
-                      <img src={verticalIcon} />
+                      <img src={verticalIcon} alt="Jeu vertical" />
                     </div>
 
                     <div className="flex-col right-content">
@@ -165,13 +163,13 @@ function Navbar() {
                     </div>
                   </div>
                 </button>
-                )
+              );
             })}
           </div>
         </div>
       </div>
 
-      <Modal opened={openUserModal} onClose={() => setOpenUserModal(false)} title={`Bonjour, ${config.firstName || "Utilisateur"} !`} centered size={"xl"}>
+      <Modal opened={openUserModal} onClose={close} title={`Bonjour, ${config.firstName || "Utilisateur"} !`} centered size={"xl"}>
         <Divider my="sm" />
         <TextInput
         label="Prénom"

@@ -9,93 +9,128 @@ const getConfigPath = async () => {
 const useConfig = () => {
   const configPathPromise = getConfigPath();
 
+  const handleError = (message: string, ignoreEmpty?: boolean) => {
+    if (!ignoreEmpty) toast.error(message);
+    return undefined;
+  };
+
+  const readConfigFile = async () => {
+    try {
+      const configPath = (await configPathPromise) + "config.json";
+      const config = await readTextFile(configPath);
+      return JSON.parse(config) || {};
+    } catch (e) {
+      return {};
+    }
+  };
+
   return {
-    all: async () => {
-      const configPath = (await configPathPromise) + "config.json";
-      try {
-        const config = await readTextFile(configPath);
-        return JSON.parse(config) || {};
-      } catch (e) {
-        return {};
-      }
-    },
+    all: readConfigFile,
+
     get: async (key: string, ignoreEmpty?: boolean) => {
-      const configPath = (await configPathPromise) + "config.json";
-      const config = await readTextFile(configPath)
-        .then((data) => JSON.parse(data))
-        .catch(() => {
-          if (!ignoreEmpty)
-            toast.error("Fichier de configuration introuvable.");
+      const config = await readConfigFile();
 
-          return {};
-        });
-
-      if (!config) {
-        if (!ignoreEmpty) toast.error("Fichier de configuration introuvable.");
-
-        return undefined;
-      }
+      if (!config)
+        return handleError(
+          "Fichier de configuration introuvable.",
+          ignoreEmpty,
+        );
 
       if (key in config) return config[key];
-      else {
-        if (!ignoreEmpty)
-          toast.error(`Clé de configuration "${key}" introuvable.`);
-        return undefined;
-      }
+      else return handleError(`Clé de configuration "${key}" introuvable.`);
     },
+
     set: async (key: string, value: string, fullConfig?: ConfigType) => {
       const configDir = await configPathPromise;
-      const configPath = (await configPathPromise) + "config.json";
       await createDir(configDir, { recursive: true }).catch(() => {
-        toast.error("L'écriture du dossier de configuration est impossible.");
+        return handleError(
+          "L'écriture du dossier de configuration est impossible.",
+        );
       });
-      if (!fullConfig) {
+
+      try {
+        const configPath = (await configPathPromise) + "config.json";
+        let config: any = {};
         if (await exists(configPath)) {
-          return await readTextFile(configPath)
-            .then((data) => JSON.parse(data))
-            .then(async (config) => {
-              config[key] = value;
-              return await writeTextFile(configPath, JSON.stringify(config))
-                .then(() => true)
-                .catch(() => {
-                  toast.error(
-                    "Impossible d'écrire dans le fichier de configuration.",
-                  );
-                  return false;
-                });
-            })
-            .catch(() => {
-              toast.error("Fichier de configuration illisible.");
-              return false;
-            });
-        } else {
-          const config = {} as any;
-          config[key] = value;
-          return await writeTextFile(configPath, JSON.stringify(config))
-            .then(() => true)
-            .catch(() => {
-              toast.error(
-                "Impossible d'écrire dans le fichier de configuration.",
-              );
-              return false;
-            });
+          const data = await readTextFile(configPath);
+          config = JSON.parse(data);
         }
-      } else {
-        return await writeTextFile(configPath, JSON.stringify(fullConfig))
-          .then(async () => {
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            return true;
-          })
-          .catch((err) => {
-            toast.error(
-              "Impossible d'écrire dans le fichier de configuration.",
-            );
-            console.error(err);
-            return false;
-          });
+
+        config[key] = value;
+
+        await writeTextFile(configPath, JSON.stringify(config));
+        return true;
+      } catch (err) {
+        toast.error("Impossible d'écrire dans le fichier de configuration.");
+        console.error(err);
+        return false;
+      }
+    },
+  };
+};
+
+const UseConfig = () => {
+  const configPathPromise = getConfigPath();
+
+  const handleError = (message: string, ignoreEmpty?: boolean) => {
+    if (!ignoreEmpty) toast.error(message);
+    return undefined;
+  };
+
+  const readConfigFile = async () => {
+    try {
+      const configPath = (await configPathPromise) + "config.json";
+      const config = await readTextFile(configPath);
+      return JSON.parse(config) || {};
+    } catch (e) {
+      return {};
+    }
+  };
+
+  return {
+    all: readConfigFile,
+
+    get: async (key: string, ignoreEmpty?: boolean) => {
+      const config = await readConfigFile();
+
+      if (!config)
+        return handleError(
+          "Fichier de configuration introuvable.",
+          ignoreEmpty,
+        );
+
+      if (key in config) return config[key];
+      else return handleError(`Clé de configuration "${key}" introuvable.`);
+    },
+
+    set: async (key: string, value: string, fullConfig?: ConfigType) => {
+      const configDir = await configPathPromise;
+      await createDir(configDir, { recursive: true }).catch(() => {
+        return handleError(
+          "L'écriture du dossier de configuration est impossible.",
+        );
+      });
+
+      try {
+        const configPath = (await configPathPromise) + "config.json";
+        let config: any = {};
+        if (await exists(configPath)) {
+          const data = await readTextFile(configPath);
+          config = JSON.parse(data);
+        }
+
+        config[key] = value;
+
+        await writeTextFile(configPath, JSON.stringify(config));
+        return true;
+      } catch (err) {
+        toast.error("Impossible d'écrire dans le fichier de configuration.");
+        console.error(err);
+        return false;
       }
     },
   };
 };
 
 export default useConfig;
+export { UseConfig };
