@@ -12,8 +12,7 @@ import {Login} from "./pages/Login/Login";
 import {Layout} from "./pages/layout";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
-import {ConfigContext, DownloadInfosContext, InstalledGameContext} from "./main";
-
+import {ConfigContext, DownloadInfosContext, InstalledGameContext,} from "./main";
 
 export function App() {
   const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev

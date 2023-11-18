@@ -14,7 +14,6 @@ export const ConfigContext = createContext({} as ConfigType);
 export const InstalledGameContext = createContext([] as InstalledGame[]);
 export const DownloadInfosContext = createContext([] as ExtendedDownloadInfo[]);
 
-
 const command = Command.sidecar("ressources/aria2c.exe", [
   "--enable-rpc=true",
   "--check-integrity=true",
@@ -33,7 +32,6 @@ command
   .catch((error) => {
     console.error(error);
   });
-
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <MantineProvider theme={{ colorScheme: "dark" }}>
