@@ -1,9 +1,9 @@
-import {Carousel} from "@mantine/carousel";
+import { Carousel } from "@mantine/carousel";
 import "./index.scss";
-import React, {useContext} from "react";
-import {Link} from "react-router-dom";
-import {OnlineGame} from "../../types/game.type";
-import {GameContext} from "../layout";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { OnlineGame } from "../../types/game.type";
+import { GameContext } from "../layout";
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);

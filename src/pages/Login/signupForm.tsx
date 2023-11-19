@@ -1,10 +1,16 @@
-import {Button, Flex, Stack, TextInput, Title} from "@mantine/core";
-import {createFormContext} from "@mantine/form";
-import {SignupFormValues} from "../../types/login.type";
-import {getSignupFormSubmit} from "./submit";
-import {TbFaceId, TbMail, TbPassword, TbServer, TbUserCircle,} from "react-icons/tb";
+import { Button, Flex, Stack, TextInput, Title } from "@mantine/core";
+import { createFormContext } from "@mantine/form";
+import { SignupFormValues } from "../../types/login.type";
+import { getSignupFormSubmit } from "./submit";
+import {
+  TbFaceId,
+  TbMail,
+  TbPassword,
+  TbServer,
+  TbUserCircle,
+} from "react-icons/tb";
 
-import {Dispatch, SetStateAction, useState} from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const [FormProvider, useFormContext, useForm] =
   createFormContext<SignupFormValues>();

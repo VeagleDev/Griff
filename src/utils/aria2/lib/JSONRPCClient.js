@@ -1,4 +1,4 @@
-import {EventEmitter} from "events";
+import { EventEmitter } from "events";
 
 import Deferred from "./Deferred.js";
 import promiseEvent from "./promiseEvent.js";

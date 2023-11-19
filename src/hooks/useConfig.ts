@@ -1,5 +1,10 @@
-import {appDataDir} from "@tauri-apps/api/path";
-import {createDir, exists, readTextFile, writeTextFile,} from "@tauri-apps/api/fs";
+import { appDataDir } from "@tauri-apps/api/path";
+import {
+  createDir,
+  exists,
+  readTextFile,
+  writeTextFile,
+} from "@tauri-apps/api/fs";
 import toast from "../utils/toast.util";
 import ConfigType from "../types/config.type";
 
@@ -70,4 +75,3 @@ const UseConfig = () => {
 };
 
 export default UseConfig;
-

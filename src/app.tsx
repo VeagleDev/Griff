@@ -1,18 +1,22 @@
-import React, {useEffect, useRef, useState} from "react";
-import ConfigType, {DataConfigSchema} from "./types/config.type";
-import {InstalledGame} from "./types/game.type";
-import {ExtendedDownloadInfo} from "./types/downloads.type";
+import React, { useEffect, useRef, useState } from "react";
+import ConfigType, { DataConfigSchema } from "./types/config.type";
+import { InstalledGame } from "./types/game.type";
+import { ExtendedDownloadInfo } from "./types/downloads.type";
 import UseConfig from "./hooks/useConfig";
 import toast from "./utils/toast.util";
 import axios from "axios";
 import OfflinePage from "./components/Misc/OfflinePage";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoadingWheel from "./components/Misc/LoadingWheel";
-import {Login} from "./pages/Login/Login";
-import {Layout} from "./pages/layout";
+import { Login } from "./pages/Login/Login";
+import { Layout } from "./pages/layout";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
-import {ConfigContext, DownloadInfosContext, InstalledGameContext,} from "./main";
+import {
+  ConfigContext,
+  DownloadInfosContext,
+  InstalledGameContext,
+} from "./main";
 
 export function App() {
   const [isLogged, setIsLogged] = useState(99); // 0 pour stable, 99 pour dev

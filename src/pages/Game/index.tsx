@@ -1,9 +1,9 @@
 import "./index.scss";
-import {GameContext} from "../layout";
-import {useContext} from "react";
-import {useLocation} from "react-router-dom";
-import {downloadGame} from "../../services/manager.service";
-import {InstalledGame} from "../../types/game.type";
+import { GameContext } from "../layout";
+import { useContext } from "react";
+import { useLocation } from "react-router-dom";
+import { downloadGame } from "../../services/manager.service";
+import { InstalledGame } from "../../types/game.type";
 
 function Tag({ text }: { text: string }) {
   return (

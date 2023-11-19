@@ -1,11 +1,11 @@
 import axios from "axios";
-import {checkServerUrl, getServerName} from "../../utils/serverUrl.util";
+import { checkServerUrl, getServerName } from "../../utils/serverUrl.util";
 import toast from "../../utils/toast.util";
 import ConfigType from "../../types/config.type";
 import UseConfig from "../../hooks/useConfig";
-import {LoginFormValues, SignupFormValues} from "../../types/login.type";
-import {Dispatch, SetStateAction} from "react";
-import {User} from "../../types/user.type";
+import { LoginFormValues, SignupFormValues } from "../../types/login.type";
+import { Dispatch, SetStateAction } from "react";
+import { User } from "../../types/user.type";
 
 export function getLoginFormSubmit(
   form: any,

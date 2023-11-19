@@ -1,5 +1,5 @@
-import {z} from "zod";
-import {documentDir} from "@tauri-apps/api/path";
+import { z } from "zod";
+import { documentDir } from "@tauri-apps/api/path";
 
 const aria2ResponseSchema = z.object({
   id: z.string(),
