@@ -16,16 +16,8 @@ function Navbar() {
 
   const downloadingGames = useContext(DownloadInfosContext);
 
-  const [openedUserModal, userModalHandlers] = useDisclosure(false);
-  const [openUserModal, closeUserModal] = [
-    userModalHandlers.open,
-    userModalHandlers.close,
-  ];
-  const [openedDownloadsModal, downloadsModalHandlers] = useDisclosure(false);
-  const [openDownloadsModal, closeDownloadsModal] = [
-    downloadsModalHandlers.open,
-    downloadsModalHandlers.close,
-  ];
+  const [openedUserModal, {open: openUserModal, close: closeUserModal}] = useDisclosure(false);
+  const [openedDownloadsModal, {open: openDownloadsModal, close: closeDownloadsModal}] = useDisclosure(false);
 
   return (
     <div className="fixed">

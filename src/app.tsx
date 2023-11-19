@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import ConfigType, {DataConfigSchema} from "./types/config.type";
 import {InstalledGame} from "./types/game.type";
 import {ExtendedDownloadInfo} from "./types/downloads.type";
-import useConfig from "./hooks/useConfig";
+import UseConfig from "./hooks/useConfig";
 import toast from "./utils/toast.util";
 import axios from "axios";
 import OfflinePage from "./components/Misc/OfflinePage";
@@ -63,7 +63,7 @@ export function App() {
     },
   ] as ExtendedDownloadInfo[]);
 
-  const { all } = useConfig();
+  const { all } = UseConfig();
 
   useEffect(() => {
     (async () => {

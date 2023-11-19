@@ -5,7 +5,7 @@ import {FormEvent} from "react";
 import z from "zod";
 import api from "../../services/api.service";
 import toast from "../../utils/toast.util";
-import useConfig from "../../hooks/useConfig";
+import UseConfig from "../../hooks/useConfig";
 
 async function changeInformations(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
@@ -42,7 +42,7 @@ async function changeInformations(event: FormEvent<HTMLFormElement>) {
     await api.put("/users", user).then(async (res) => {
       console.log(res);
       const { firstName, pseudo } = res.data.user;
-      const config = useConfig();
+      const config = UseConfig();
       await config.set("firstName", firstName);
       await config.set("username", pseudo);
     });
