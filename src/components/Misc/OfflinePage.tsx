@@ -1,5 +1,11 @@
-import React, {Dispatch, SetStateAction, useEffect, useRef, useState,} from "react";
-import {Loader, Text} from "@mantine/core";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Loader, Text } from "@mantine/core";
 import axios from "axios";
 
 const OfflinePage = ({

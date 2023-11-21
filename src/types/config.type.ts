@@ -1,5 +1,5 @@
-import {InstalledGame} from "./game.type";
-import {z} from "zod";
+import { InstalledGame } from "./game.type";
+import { z } from "zod";
 
 export const DataConfigSchema = z.object({
   serverUrl: z.string().min(1).startsWith("http"),

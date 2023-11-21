@@ -1,14 +1,14 @@
-import {MantineProvider} from "@mantine/core";
-import {ModalsProvider} from "@mantine/modals";
-import {Notifications} from "@mantine/notifications";
-import React, {createContext} from "react";
+import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
+import { Notifications } from "@mantine/notifications";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./services/manager.service";
-import {Command} from "@tauri-apps/api/shell";
+import { Command } from "@tauri-apps/api/shell";
 import ConfigType from "./types/config.type";
-import {InstalledGame} from "./types/game.type";
-import {ExtendedDownloadInfo} from "./types/downloads.type";
-import {App} from "./app";
+import { InstalledGame } from "./types/game.type";
+import { ExtendedDownloadInfo } from "./types/downloads.type";
+import { App } from "./app";
 
 export const ConfigContext = createContext({} as ConfigType);
 export const InstalledGameContext = createContext([] as InstalledGame[]);

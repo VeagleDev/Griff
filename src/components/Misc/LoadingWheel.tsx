@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Loader, Text} from "@mantine/core";
+import React, { useEffect } from "react";
+import { Loader, Text } from "@mantine/core";
 
 const LoadingWheel = () => {
   const [dotsNumber, setDotsNumber] = React.useState(0);

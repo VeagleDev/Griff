@@ -1,7 +1,7 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import {createContext, useEffect, useState} from "react";
-import {OnlineGame} from "../types/game.type";
+import { createContext, useEffect, useState } from "react";
+import { OnlineGame } from "../types/game.type";
 import api from "../services/api.service";
 import toast from "../utils/toast.util";
 
