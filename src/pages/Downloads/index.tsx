@@ -1,6 +1,7 @@
-import {Grid, Modal} from "@mantine/core";
+import {Grid, Modal, Flex, Progress, Text} from "@mantine/core";
 import {ExtendedDownloadInfo} from "../../types/downloads.type";
 import {OnlineGame} from "../../types/game.type";
+import "./index.scss";
 
 export function DownloadsModal({
   opened,
@@ -28,10 +29,26 @@ export function DownloadsModal({
         {downloadingGames.map((props: ExtendedDownloadInfo) => {
           const game = games.find((gameElement) => gameElement.id === props.id);
           const name = game?.name;
-          const verticalIcon = game?.props.verticalIcon;
+
           return (
-            <Grid.Col>
-              <h2>{name}</h2>
+            <Grid.Col className="col">
+              <Grid.Col>
+                <h2>{name}</h2>
+                <Flex justify={"space-between"} w={"100%"}>
+                  <Text c="dimmed">En cours</Text>
+                  <Text c="dimmed">temps restant</Text>
+                </Flex>
+              </Grid.Col>
+              
+              <Grid.Col className="bottom">
+                <Flex justify={"space-between"} w={"100%"}>
+                  <Text c="dimmed">vitesse {props.downloadSpeed}Mo/s</Text>
+                  <Text c="dimmed">{props.progress}%</Text>
+                </Flex>
+                <div className="progress-bar">
+                  <div className="progress"></div>
+                </div>
+              </Grid.Col>
             </Grid.Col>
           );
         })}

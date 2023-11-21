@@ -1,0 +1,30 @@
+@import "../../styles/style.scss";
+
+.col {
+    position: relative;
+    height: 150px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: $stripe;
+    overflow: hidden;
+
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+    .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;    
+        height: 7px;
+        background: #ffffff30;
+        .progress {
+            height: 100%;
+            width: 50%;
+            background: #669bbc;
+        }
+    }
+}
